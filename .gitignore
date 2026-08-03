@@ -1,0 +1,20 @@
+.DS_Store
+
+# 一次情報の資料（社内資料。SPEC.md 単体で完結しているため管理対象外）
+docs/*.pdf
+
+# 依存
+node_modules/
+
+# 環境変数・接続情報
+.env
+.env.*
+!.env.example
+
+# ログ・一時ファイル
+*.log
+tmp/
+
+# DB ダンプ
+*.dump
+*.sql.gz

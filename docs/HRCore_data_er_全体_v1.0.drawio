@@ -1,0 +1,200 @@
+<mxfile host="app.diagrams.net" type="device">
+  <diagram id="hrcore-er-v1" name="ER図（全体 / L3）">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1520" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="title" value="HRCore — ER図（全体 / L3：制約・トリガーを含む）" style="text;html=1;align=center;verticalAlign=middle;fontSize=18;fontStyle=1;fontColor=#1A2538;" vertex="1" parent="1">
+          <mxGeometry x="460" y="16" width="600" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" value="有効期間はすべて daterange（半開区間 [) ／ 無期限は upper NULL）。期間の重複は EXCLUDE USING gist が DB 側で保証する。" style="text;html=1;align=center;verticalAlign=middle;fontSize=11;fontColor=#546E7A;" vertex="1" parent="1">
+          <mxGeometry x="360" y="52" width="800" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- Relations : FK constraint (solid) -->
+        <mxCell id="R-001" value="1..N" style="edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;strokeColor=#607D8B;strokeWidth=1.5;endArrow=ERmany;startArrow=ERone;fontSize=9;fontColor=#455A64;" edge="1" parent="1" source="E-001" target="E-005"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="R-002" value="1..N" style="edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;strokeColor=#607D8B;strokeWidth=1.5;endArrow=ERmany;startArrow=ERone;fontSize=9;fontColor=#455A64;" edge="1" parent="1" source="E-002" target="E-005"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="R-003" value="1..N" style="edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;strokeColor=#607D8B;strokeWidth=1.5;endArrow=ERmany;startArrow=ERone;fontSize=9;fontColor=#455A64;exitX=1;exitY=0.3;entryX=0;entryY=0.7;" edge="1" parent="1" source="E-004" target="E-005"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="R-004" value="1..N" style="edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;strokeColor=#607D8B;strokeWidth=1.5;endArrow=ERmany;startArrow=ERone;fontSize=9;fontColor=#455A64;exitX=1;exitY=0.5;entryX=0;entryY=0.3;" edge="1" parent="1" source="E-004" target="E-010"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="R-005" value="1..N" style="edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;strokeColor=#607D8B;strokeWidth=1.5;endArrow=ERmany;startArrow=ERone;fontSize=9;fontColor=#455A64;exitX=1;exitY=0.7;entryX=0;entryY=0.3;" edge="1" parent="1" source="E-004" target="E-011"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="R-006" value="1..N" style="edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;strokeColor=#607D8B;strokeWidth=1.5;endArrow=ERmany;startArrow=ERone;fontSize=9;fontColor=#455A64;exitX=1;exitY=0.9;entryX=0;entryY=0.3;" edge="1" parent="1" source="E-004" target="E-009"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="R-007" value="1..N" style="edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;strokeColor=#607D8B;strokeWidth=1.5;endArrow=ERmany;startArrow=ERone;fontSize=9;fontColor=#455A64;exitX=0;exitY=0.5;entryX=1;entryY=0.7;" edge="1" parent="1" source="E-008" target="E-009"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="R-008" value="1..N" style="edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;strokeColor=#607D8B;strokeWidth=1.5;endArrow=ERmany;startArrow=ERone;fontSize=9;fontColor=#455A64;exitX=1;exitY=0.5;entryX=0;entryY=0.2;" edge="1" parent="1" source="E-001" target="E-006"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="R-009" value="1..N" style="edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;strokeColor=#7CB342;strokeWidth=1.5;endArrow=ERmany;startArrow=ERone;fontSize=9;fontColor=#558B2F;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="E-003" target="E-006"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <!-- Relations : logical reference (dashed, no FK) -->
+        <mxCell id="R-010" value="1..N (org_code)" style="edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;dashed=1;strokeColor=#F57C00;strokeWidth=1.5;endArrow=ERmany;startArrow=ERone;fontSize=9;fontColor=#E65100;exitX=0.25;exitY=1;entryX=0.25;entryY=0;" edge="1" parent="1" source="E-006" target="E-007"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="R-011" value="0..N (parent_org_code)" style="edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;dashed=1;strokeColor=#F57C00;strokeWidth=1.5;endArrow=ERmany;startArrow=ERone;fontSize=9;fontColor=#E65100;exitX=0.75;exitY=1;entryX=0.75;entryY=0;" edge="1" parent="1" source="E-006" target="E-007"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="R-012" value="1..N (org_code)" style="edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;dashed=1;strokeColor=#F57C00;strokeWidth=1.5;endArrow=ERmany;startArrow=ERone;fontSize=9;fontColor=#E65100;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="E-007" target="E-008"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="R-013" value="1..N (org_code)" style="edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;dashed=1;strokeColor=#F57C00;strokeWidth=1.5;endArrow=ERmany;startArrow=ERone;fontSize=9;fontColor=#E65100;exitX=0;exitY=0.8;entryX=1;entryY=0.15;" edge="1" parent="1" source="E-006" target="E-010"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <!-- Entities : master -->
+        <mxCell id="E-001" value="&lt;b&gt;company (E-001)&lt;/b&gt; 会社&lt;br&gt;&lt;br&gt;🔑 PK company_code&lt;br&gt;company_name&lt;br&gt;📅 valid_period daterange&lt;br&gt;&lt;br&gt;&lt;i&gt;グループ会社を含む。現状 kintone では&lt;br&gt;管理できていない領域（新規追加）&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=10;fontColor=#333333;fillColor=#E8EAF6;strokeColor=#3949AB;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="60" y="110" width="240" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="E-002" value="&lt;b&gt;location (E-002)&lt;/b&gt; 拠点&lt;br&gt;&lt;br&gt;🔑 PK location_code&lt;br&gt;location_name&lt;br&gt;📅 valid_period daterange&lt;br&gt;&lt;br&gt;&lt;i&gt;新規追加&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=10;fontColor=#333333;fillColor=#E8EAF6;strokeColor=#3949AB;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="60" y="265" width="240" height="115" as="geometry" />
+        </mxCell>
+        <mxCell id="E-003" value="&lt;b&gt;org_layer (E-003)&lt;/b&gt; 組織階層区分&lt;br&gt;&lt;i&gt;時系列を持たない固定マスタ&lt;/i&gt;&lt;br&gt;&lt;br&gt;🔑 PK layer_code&lt;br&gt;layer_name&lt;br&gt;layer_order smallint UNIQUE&lt;br&gt;&lt;br&gt;1=本部 2=副本部 3=部 4=副部 5=チーム&lt;br&gt;&lt;i&gt;ENUM でなくテーブル → 段の追加・&lt;br&gt;並べ替えに ALTER TYPE が不要&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=10;fontColor=#333333;fillColor=#F1F8E9;strokeColor=#7CB342;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="60" y="405" width="240" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="E-004" value="&lt;b&gt;person (E-004)&lt;/b&gt; 個人&lt;br&gt;&lt;br&gt;🔑 PK person_id bigserial&lt;br&gt;created_at&lt;br&gt;&lt;br&gt;&lt;i&gt;転籍をまたいで不変の識別子。&lt;br&gt;氏名を持つかは未決&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=10;fontColor=#333333;fillColor=#E8EAF6;strokeColor=#3949AB;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="60" y="590" width="240" height="120" as="geometry" />
+        </mxCell>
+
+        <!-- Entities : core -->
+        <mxCell id="E-005" value="&lt;b&gt;employment (E-005)&lt;/b&gt; 雇用&lt;br&gt;&lt;br&gt;🔗 FK person_id → person&lt;br&gt;🔗 FK company_code → company&lt;br&gt;🔗 FK location_code → location&lt;br&gt;employee_no&lt;br&gt;employment_type / work_style&lt;br&gt;📅 valid_period daterange&lt;br&gt;&lt;br&gt;⛔ EXCLUDE (person_id =, period &amp;&amp;)&lt;br&gt;　→ &lt;b&gt;同時に1社のみ&lt;/b&gt;（在籍出向なし）&lt;br&gt;&lt;i&gt;転籍 = 前雇用の終了 + 新雇用の開始&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=10;fontColor=#333333;fillColor=#E8EAF6;strokeColor=#3949AB;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="390" y="110" width="290" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="E-010" value="&lt;b&gt;assignment (E-010)&lt;/b&gt; 配属　&lt;b&gt;[案A]&lt;/b&gt;&lt;br&gt;&lt;br&gt;🔗 FK person_id → person&lt;br&gt;org_code（論理参照）&lt;br&gt;is_primary boolean　主務/兼務&lt;br&gt;📅 valid_period daterange&lt;br&gt;&lt;br&gt;⛔ EXCLUDE (person_id =, org_code =,&lt;br&gt;　　　　　　 period &amp;&amp;)&lt;br&gt;　→ 同一組織への重複配属のみ禁止&lt;br&gt;　→ &lt;b&gt;複数組織への同時配属は許可&lt;/b&gt;&lt;br&gt;　　（マトリクス組織・兼務の表現）&lt;br&gt;&lt;i&gt;兼務工数は持たない（kintone 側）&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=10;fontColor=#333333;fillColor=#E8EAF6;strokeColor=#3949AB;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="390" y="335" width="290" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="E-011" value="&lt;b&gt;assignment_bt (E-011)&lt;/b&gt; 配属　&lt;b&gt;[案B]&lt;/b&gt;&lt;br&gt;&lt;i&gt;バイテンポラル。案A と並行実装して検証&lt;/i&gt;&lt;br&gt;&lt;br&gt;🔗 FK person_id → person&lt;br&gt;org_code / is_primary&lt;br&gt;📅 valid_period daterange　いつからその配属か&lt;br&gt;🕐 recorded_period tstzrange　いつそう認識したか&lt;br&gt;&lt;br&gt;⛔ EXCLUDE (person_id =, org_code =,&lt;br&gt;　　　 valid_period &amp;&amp;, recorded_period &amp;&amp;)&lt;br&gt;⚙ assignment_upsert() で close + insert&lt;br&gt;　（append-only。UPDATE しない）&lt;br&gt;&lt;br&gt;⚠ 参照は必ず assignment_bt_current 経由&lt;br&gt;　 生テーブル直参照 → 重複行が静かに返る" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=10;fontColor=#333333;fillColor=#FFF3E0;strokeColor=#FB8C00;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="390" y="570" width="290" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="E-009" value="&lt;b&gt;position_holder (E-009)&lt;/b&gt; 役職任命&lt;br&gt;&lt;br&gt;🔗 FK person_id → person&lt;br&gt;🔗 FK position_id → position&lt;br&gt;📅 valid_period daterange&lt;br&gt;&lt;br&gt;⛔ EXCLUDE (person_id =, position_id =,&lt;br&gt;　　　　　　 period &amp;&amp;)" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=10;fontColor=#333333;fillColor=#E8EAF6;strokeColor=#3949AB;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="390" y="835" width="290" height="140" as="geometry" />
+        </mxCell>
+
+        <!-- Entities : org -->
+        <mxCell id="E-006" value="&lt;b&gt;org_unit (E-006)&lt;/b&gt; 組織&lt;br&gt;&lt;br&gt;org_code　&lt;i&gt;PK なし。期間ごとに複数行&lt;/i&gt;&lt;br&gt;org_name&lt;br&gt;🔗 FK company_code → company&lt;br&gt;🔗 FK layer_code → org_layer&lt;br&gt;📅 valid_period daterange&lt;br&gt;&lt;br&gt;⛔ EXCLUDE (org_code =, period &amp;&amp;)&lt;br&gt;&lt;br&gt;&lt;i&gt;改称は org_unit を1行足すだけ。&lt;br&gt;配下組織の履歴行は増えない&lt;br&gt;（5列フルパス案を捨てた理由）&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=10;fontColor=#333333;fillColor=#E8EAF6;strokeColor=#3949AB;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="780" y="110" width="300" height="195" as="geometry" />
+        </mxCell>
+        <mxCell id="E-007" value="&lt;b&gt;org_hierarchy (E-007)&lt;/b&gt; 組織階層&lt;br&gt;&lt;i&gt;隣接リスト格納。期間を持つのは「親子関係」&lt;/i&gt;&lt;br&gt;&lt;br&gt;org_code（論理参照）&lt;br&gt;parent_org_code（NULL = ルート）&lt;br&gt;📅 valid_period daterange&lt;br&gt;&lt;br&gt;⛔ EXCLUDE (org_code =, period &amp;&amp;)&lt;br&gt;　→ 親は同時に1つ&lt;br&gt;⚡ CONSTRAINT TRIGGER trg_org_layer_order&lt;br&gt;　 DEFERRABLE INITIALLY DEFERRED&lt;br&gt;　→ 親の layer_order &amp;lt; 子の layer_order&lt;br&gt;　→ 段の飛ばし（歯抜け）は許容&lt;br&gt;&lt;br&gt;&lt;i&gt;会社を跨ぐ単一ツリー ＋ 独立ルートの&lt;br&gt;フォレスト構造。深さ上限 5&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=10;fontColor=#333333;fillColor=#E8EAF6;strokeColor=#3949AB;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="780" y="360" width="300" height="235" as="geometry" />
+        </mxCell>
+        <mxCell id="E-008" value="&lt;b&gt;position (E-008)&lt;/b&gt; 役職&lt;br&gt;&lt;br&gt;🔑 PK position_id bigserial&lt;br&gt;org_code（論理参照）&lt;br&gt;position_name&lt;br&gt;📅 valid_period daterange&lt;br&gt;&lt;br&gt;&lt;i&gt;例: 人事本部 本部長。マネジメント役割&lt;br&gt;（理想/業務/組織/人材/投資）は kintone 側&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=10;fontColor=#333333;fillColor=#E8EAF6;strokeColor=#3949AB;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="780" y="650" width="300" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="E-012" value="&lt;b&gt;change_log (E-012)&lt;/b&gt; 変更ログ　&lt;b&gt;[案A の監査用]&lt;/b&gt;&lt;br&gt;&lt;br&gt;🔑 PK id bigserial&lt;br&gt;table_name / operation&lt;br&gt;changed_at / changed_by&lt;br&gt;before_row jsonb / after_row jsonb&lt;br&gt;&lt;br&gt;&lt;i&gt;案B を採る場合は本体が履歴を兼ねるため不要。&lt;br&gt;書き込みトリガは未実装。changed_by の&lt;br&gt;受け渡し方式は未決（PoC では固定値）&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=10;fontColor=#333333;fillColor=#F3E5F5;strokeColor=#8E24AA;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="780" y="845" width="300" height="165" as="geometry" />
+        </mxCell>
+
+        <!-- Views -->
+        <mxCell id="V-001" value="&lt;b&gt;kintone 公開用 ビュー・関数 (V-001)&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;org_full_path(p_asof date)&lt;/b&gt;&lt;br&gt;　recursive CTE で親を辿り、フルパスを&lt;br&gt;　level1..level5 の5列に展開する&lt;br&gt;　&lt;b&gt;列位置は depth ではなく layer_order&lt;/b&gt;&lt;br&gt;　→ 歯抜けが NULL のまま残り、現行 kintone の&lt;br&gt;　　 見え方と一致する&lt;br&gt;&lt;br&gt;&lt;b&gt;org_path_current&lt;/b&gt;　= org_full_path(CURRENT_DATE)&lt;br&gt;&lt;b&gt;employee_current&lt;/b&gt;　雇用の現在断面&lt;br&gt;&lt;b&gt;assignment_current&lt;/b&gt;　配属の現在断面（案A）&lt;br&gt;&lt;b&gt;assignment_bt_current&lt;/b&gt;　案B の公開面&lt;br&gt;&lt;br&gt;&lt;i&gt;外部システムのアプリ化は range 型を扱えない&lt;br&gt;→ ビューで lower()/upper() を&lt;br&gt;　 valid_start / valid_end の date 2列に展開&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=10;fontColor=#333333;fillColor=#E0F7FA;strokeColor=#00838F;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="1150" y="110" width="320" height="290" as="geometry" />
+        </mxCell>
+
+        <mxCell id="V-002" value="&lt;b&gt;EXCLUDE 制約の一覧（＝「同時に1つ」の定義）&lt;/b&gt;&lt;br&gt;&lt;br&gt;employment　person_id + 期間&lt;br&gt;　→ 同時に所属する会社は1社&lt;br&gt;org_unit　org_code + 期間&lt;br&gt;　→ 同一組織コードの期間は重ならない&lt;br&gt;org_hierarchy　org_code + 期間&lt;br&gt;　→ 親は同時に1つ&lt;br&gt;assignment　person_id + org_code + 期間&lt;br&gt;　→ 同一組織への重複配属のみ禁止&lt;br&gt;position_holder　person_id + position_id + 期間&lt;br&gt;&lt;br&gt;&lt;b&gt;拡張&lt;/b&gt;　btree_gist 必須（= と &amp;&amp; の併用）&lt;br&gt;&lt;br&gt;&lt;b&gt;未実装（PoC で追加）&lt;/b&gt;&lt;br&gt;・change_log を書き込むトリガ&lt;br&gt;・組織階層の循環参照の検出&lt;br&gt;・ツリーの深さが5を超えないことの検証&lt;br&gt;・有効期間のギャップ検出&lt;br&gt;　（在籍中に配属がない期間）" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=10;fontColor=#333333;fillColor=#FAFAFA;strokeColor=#B0BEC5;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="1150" y="420" width="320" height="300" as="geometry" />
+        </mxCell>
+
+        <mxCell id="V-003" value="&lt;b&gt;kintone 側が持つもの（HRCore のスコープ外）&lt;/b&gt;&lt;br&gt;&lt;br&gt;・個人情報・緊急連絡先（社員マスタ／非公開）&lt;br&gt;・兼務工数（変更頻度が高い）&lt;br&gt;・マネジメント役割（理想/業務/組織/人材/投資）&lt;br&gt;・各業務システムの付加情報&lt;br&gt;&lt;br&gt;&lt;i&gt;kintone は外部システムのアプリ化で HRCore を&lt;br&gt;引いた上に、これらを足す形で構成する。&lt;br&gt;HRCore に個人情報がないため RLS は不要&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=10;fontColor=#333333;fillColor=#ECEFF1;strokeColor=#78909C;strokeWidth=1.5;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="1150" y="740" width="320" height="170" as="geometry" />
+        </mxCell>
+
+        <!-- Legend -->
+        <mxCell id="LG-1" value="期間を持つコアテーブル" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;fillColor=#E8EAF6;strokeColor=#3949AB;" vertex="1" parent="1"><mxGeometry x="60" y="1040" width="180" height="26" as="geometry" /></mxCell>
+        <mxCell id="LG-2" value="時系列を持たないマスタ" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;fillColor=#F1F8E9;strokeColor=#7CB342;" vertex="1" parent="1"><mxGeometry x="250" y="1040" width="180" height="26" as="geometry" /></mxCell>
+        <mxCell id="LG-3" value="案B（PoC 並行検証）" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;fillColor=#FFF3E0;strokeColor=#FB8C00;" vertex="1" parent="1"><mxGeometry x="440" y="1040" width="170" height="26" as="geometry" /></mxCell>
+        <mxCell id="LG-4" value="監査" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;fillColor=#F3E5F5;strokeColor=#8E24AA;" vertex="1" parent="1"><mxGeometry x="620" y="1040" width="100" height="26" as="geometry" /></mxCell>
+        <mxCell id="LG-5" value="ビュー・関数（kintone 公開面）" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;fillColor=#E0F7FA;strokeColor=#00838F;" vertex="1" parent="1"><mxGeometry x="730" y="1040" width="210" height="26" as="geometry" /></mxCell>
+        <mxCell id="LG-6" value="—|&lt; FK 制約あり（実線）" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;fillColor=#FFFFFF;strokeColor=#607D8B;fontColor=#455A64;" vertex="1" parent="1"><mxGeometry x="950" y="1040" width="200" height="26" as="geometry" /></mxCell>
+        <mxCell id="LG-7" value="⇠ 論理参照（破線 / FK 制約なし）" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;fillColor=#FFF8E1;strokeColor=#F57C00;fontColor=#E65100;dashed=1;" vertex="1" parent="1"><mxGeometry x="1160" y="1040" width="240" height="26" as="geometry" /></mxCell>
+
+        <mxCell id="NOTE" value="&lt;b&gt;Scope&lt;/b&gt;：HRCore（PostgreSQL）が持つ 9 エンティティ ＋ 階層区分マスタ ＋ 監査 ＋ kintone 公開面。&lt;b&gt;対象外&lt;/b&gt;：kintone 側の業務アプリ・非公開情報・兼務工数（V-003 に列挙）／API 層・Agent 構成（SPEC.md 1章）&#10;&lt;b&gt;破線の意味&lt;/b&gt;：org_code への参照は FK 制約を張れない。org_unit は期間ごとに複数行を持ち org_code が一意でないため（PK がない）。参照整合性はアプリ層と制約トリガで担保する。&#10;&lt;b&gt;入力ソース&lt;/b&gt;：db/schema.sql（スキーマの単一ソース）／docs/SPEC.md 3-5章　　&lt;b&gt;抽象度&lt;/b&gt;：L3（制約・トリガーを含む）　　&lt;b&gt;実例データ&lt;/b&gt;：2ページ目を参照　　v1.0（初版）" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#444444;spacingLeft=8;spacingTop=6;strokeColor=#D0D0D0;fillColor=#FAFAFA;" vertex="1" parent="1">
+          <mxGeometry x="60" y="1085" width="1410" height="80" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="hrcore-er-sample-v1" name="実例データ（ER図の補助）">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1420" pageHeight="1700" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="s-title" value="HRCore — 実例データ（ER図の補助 / ダミーデータ）" style="text;html=1;align=center;verticalAlign=middle;fontSize=18;fontStyle=1;fontColor=#1A2538;" vertex="1" parent="1">
+          <mxGeometry x="410" y="16" width="600" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="s-subtitle" value="基準日 2026-08-03 時点。歯抜け階層・会社跨ぎ・フォレスト構造・転籍・未来日予約をすべて含むサンプル。" style="text;html=1;align=center;verticalAlign=middle;fontSize=11;fontColor=#546E7A;" vertex="1" parent="1">
+          <mxGeometry x="310" y="52" width="800" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="s-h1" value="① 組織ツリー（2026-08-03 時点）　※ 括弧内は 階層区分(layer_order) / ツリーの深さ depth" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontStyle=1;fontColor=#1A2538;" vertex="1" parent="1">
+          <mxGeometry x="60" y="82" width="900" height="24" as="geometry" />
+        </mxCell>
+
+        <!-- tree edges -->
+        <mxCell id="T-e1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#757575;strokeWidth=1.5;endArrow=block;endFill=1;" edge="1" parent="1" source="T-01" target="T-02"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="T-e2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#757575;strokeWidth=1.5;endArrow=block;endFill=1;" edge="1" parent="1" source="T-02" target="T-03"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="T-e3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#757575;strokeWidth=1.5;endArrow=block;endFill=1;" edge="1" parent="1" source="T-04" target="T-05"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="T-e4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#757575;strokeWidth=1.5;endArrow=block;endFill=1;" edge="1" parent="1" source="T-05" target="T-06"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="T-e5" value="会社跨ぎ" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#F57C00;strokeWidth=1.5;endArrow=block;endFill=1;fontSize=9;fontColor=#E65100;" edge="1" parent="1" source="T-07" target="T-08"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <!-- tree nodes -->
+        <mxCell id="T-01" value="&lt;b&gt;人事本部&lt;/b&gt;　HR&lt;br&gt;honbu(1) / depth 1&lt;br&gt;CB" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;strokeWidth=1.5;fontSize=10;fontColor=#333333;fillColor=#E8EAF6;strokeColor=#3949AB;" vertex="1" parent="1"><mxGeometry x="60" y="120" width="190" height="60" as="geometry" /></mxCell>
+        <mxCell id="T-02" value="&lt;b&gt;人事インフラ部&lt;/b&gt;　HRINF&lt;br&gt;&lt;b&gt;bu(3)&lt;/b&gt; / depth 2　⚠歯抜け&lt;br&gt;CB" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;strokeWidth=1.5;fontSize=10;fontColor=#333333;fillColor=#FFF8E1;strokeColor=#FFB300;" vertex="1" parent="1"><mxGeometry x="60" y="230" width="190" height="60" as="geometry" /></mxCell>
+        <mxCell id="T-03" value="&lt;b&gt;HR数値分析チーム&lt;/b&gt;　HRANL&lt;br&gt;&lt;b&gt;team(5)&lt;/b&gt; / depth 3　⚠歯抜け&lt;br&gt;CB" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;strokeWidth=1.5;fontSize=10;fontColor=#333333;fillColor=#FFF8E1;strokeColor=#FFB300;" vertex="1" parent="1"><mxGeometry x="60" y="340" width="190" height="60" as="geometry" /></mxCell>
+
+        <mxCell id="T-04" value="&lt;b&gt;EP事業本部&lt;/b&gt;　EP&lt;br&gt;honbu(1) / depth 1&lt;br&gt;CB" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;strokeWidth=1.5;fontSize=10;fontColor=#333333;fillColor=#E8EAF6;strokeColor=#3949AB;" vertex="1" parent="1"><mxGeometry x="330" y="120" width="190" height="60" as="geometry" /></mxCell>
+        <mxCell id="T-05" value="&lt;b&gt;EP事業副部&lt;/b&gt;　EPF&lt;br&gt;fuku_honbu(2) / depth 2&lt;br&gt;CB" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;strokeWidth=1.5;fontSize=10;fontColor=#333333;fillColor=#E8EAF6;strokeColor=#3949AB;" vertex="1" parent="1"><mxGeometry x="330" y="230" width="190" height="60" as="geometry" /></mxCell>
+        <mxCell id="T-06" value="&lt;b&gt;EP事業部&lt;/b&gt;　EPB&lt;br&gt;&lt;b&gt;bu(3)&lt;/b&gt; / depth 3　歯抜けなし&lt;br&gt;CB" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;strokeWidth=1.5;fontSize=10;fontColor=#E8F5E9;strokeColor=#43A047;fillColor=#E8F5E9;" vertex="1" parent="1"><mxGeometry x="330" y="340" width="190" height="60" as="geometry" /></mxCell>
+
+        <mxCell id="T-07" value="&lt;b&gt;グローバル事業本部&lt;/b&gt;　GLB&lt;br&gt;honbu(1) / depth 1&lt;br&gt;CB" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;strokeWidth=1.5;fontSize=10;fontColor=#333333;fillColor=#E8EAF6;strokeColor=#3949AB;" vertex="1" parent="1"><mxGeometry x="600" y="120" width="200" height="60" as="geometry" /></mxCell>
+        <mxCell id="T-08" value="&lt;b&gt;Cybozu US&lt;/b&gt;　USOPS&lt;br&gt;&lt;b&gt;bu(3)&lt;/b&gt; / depth 2　⚠歯抜け&lt;br&gt;&lt;b&gt;CBUS&lt;/b&gt;（別会社）" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;strokeWidth=1.5;fontSize=10;fontColor=#333333;fillColor=#FFF8E1;strokeColor=#FFB300;" vertex="1" parent="1"><mxGeometry x="600" y="230" width="200" height="60" as="geometry" /></mxCell>
+
+        <mxCell id="T-09" value="&lt;b&gt;Cybozu Vietnam&lt;/b&gt;　VNOPS&lt;br&gt;honbu(1) / depth 1&lt;br&gt;&lt;b&gt;CBVN&lt;/b&gt;（別会社・独立ルート）" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;strokeWidth=1.5;fontSize=10;fontColor=#333333;fillColor=#F3E5F5;strokeColor=#8E24AA;" vertex="1" parent="1"><mxGeometry x="860" y="120" width="210" height="60" as="geometry" /></mxCell>
+
+        <mxCell id="T-note" value="&lt;b&gt;この1枚で分かること&lt;/b&gt;&lt;br&gt;&lt;br&gt;⚠&lt;b&gt;歯抜け&lt;/b&gt;：人事本部(1) の直下が部(3)。&lt;br&gt;副本部(2) が存在しない。トリガは&lt;br&gt;layer_order の単調増加だけを見るので通る&lt;br&gt;&lt;br&gt;&lt;b&gt;depth と階層区分がずれる&lt;/b&gt;：&lt;br&gt;HRINF は depth 2 だが「部」（3段目）。&lt;br&gt;EPB は depth 3 で「部」。&lt;br&gt;→ depth で「部レベル」を数えると破綻する&lt;br&gt;&lt;br&gt;&lt;b&gt;フォレスト構造&lt;/b&gt;：ルートが4つ&lt;br&gt;（HR / EP / GLB / VNOPS）&lt;br&gt;&lt;br&gt;&lt;b&gt;会社跨ぎ&lt;/b&gt;：GLB(CB) の配下に USOPS(CBUS)。&lt;br&gt;→ 会社別集計と階層集計が別軸になる" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=10;fontColor=#333333;fillColor=#FAFAFA;strokeColor=#B0BEC5;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="1110" y="120" width="290" height="280" as="geometry" />
+        </mxCell>
+
+        <mxCell id="s-h2" value="② サンプルレコード　※ 期間はすべて半開区間 [) ／ 無期限は upper を空欄で表記" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontStyle=1;fontColor=#1A2538;" vertex="1" parent="1">
+          <mxGeometry x="60" y="425" width="900" height="24" as="geometry" />
+        </mxCell>
+
+        <mxCell id="D-01" value="&lt;b&gt;company&lt;/b&gt;&lt;br&gt;&lt;br&gt;company_code  company_name          valid_period&lt;br&gt;CB            サイボウズ株式会社    [2000-08-01, )&lt;br&gt;CBUS          Cybozu US, Inc.       [2014-04-01, )&lt;br&gt;CBVN          Cybozu Vietnam        [2015-04-01, )&lt;br&gt;&lt;br&gt;&lt;b&gt;location&lt;/b&gt;&lt;br&gt;&lt;br&gt;location_code  location_name  valid_period&lt;br&gt;TKY            東京オフィス   [2000-08-01, )&lt;br&gt;OSK            大阪オフィス   [2005-04-01, )" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=9;fontFamily=Courier New;fontColor=#333333;fillColor=#E8EAF6;strokeColor=#3949AB;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="60" y="455" width="430" height="180" as="geometry" />
+        </mxCell>
+
+        <mxCell id="D-02" value="&lt;b&gt;org_layer&lt;/b&gt;（固定マスタ）&lt;br&gt;&lt;br&gt;layer_code   layer_name  layer_order&lt;br&gt;honbu        本部        1&lt;br&gt;fuku_honbu   副本部      2&lt;br&gt;bu           部          3&lt;br&gt;fuku_bu      副部        4&lt;br&gt;team         チーム      5" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=9;fontFamily=Courier New;fontColor=#333333;fillColor=#F1F8E9;strokeColor=#7CB342;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="510" y="455" width="300" height="180" as="geometry" />
+        </mxCell>
+
+        <mxCell id="D-03" value="&lt;b&gt;person&lt;/b&gt; / &lt;b&gt;employment&lt;/b&gt;　← 転籍の表現&lt;br&gt;&lt;br&gt;person_id  company  employee_no  type      work_style    location  valid_period&lt;br&gt;1          CB       10001        正社員    フルリモート  TKY       [2020-04-01, )&lt;br&gt;2          CB       10002        正社員    出社中心      OSK       [2018-04-01, )&lt;br&gt;3          CB       10003        正社員    フルリモート  TKY       [2019-04-01, 2025-04-01)&lt;br&gt;3          CBUS     US-0007      正社員    -             -         [2025-04-01, )&lt;br&gt;&lt;br&gt;person_id 3 は 2025-03-31 付で CB を退職し CBUS へ転籍。&lt;b&gt;person_id は 3 のまま不変&lt;/b&gt;。&lt;br&gt;半開区間なので前雇用の upper と新雇用の lower が同じ 2025-04-01 で隙間なく接続し、&lt;br&gt;EXCLUDE (person_id, period) にも違反しない（重複していないため）。" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=9;fontFamily=Courier New;fontColor=#333333;fillColor=#E8EAF6;strokeColor=#3949AB;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="830" y="455" width="570" height="180" as="geometry" />
+        </mxCell>
+
+        <mxCell id="D-04" value="&lt;b&gt;org_unit&lt;/b&gt;　← 改称しても配下の履歴行は増えない&lt;br&gt;&lt;br&gt;org_code  org_name              company  layer_code    valid_period&lt;br&gt;HR        人事本部              CB       honbu         [2015-04-01, )&lt;br&gt;HRINF     人事インフラ部        CB       bu            [2022-04-01, )&lt;br&gt;HRANL     HR数値分析チーム      CB       team          [2024-04-01, )&lt;br&gt;EP        EP事業本部            CB       honbu         [2016-04-01, 2026-04-01)  ←改称前&lt;br&gt;EP        営業本部              CB       honbu         [2026-04-01, )            ←改称後&lt;br&gt;EPF       EP事業副部            CB       fuku_honbu    [2016-04-01, )&lt;br&gt;EPB       EP事業部              CB       bu            [2016-04-01, )&lt;br&gt;GLB       グローバル事業本部    CB       honbu         [2014-04-01, )&lt;br&gt;USOPS     Cybozu US             CBUS     bu            [2014-04-01, )&lt;br&gt;VNOPS     Cybozu Vietnam        CBVN     honbu         [2015-04-01, )&lt;br&gt;&lt;br&gt;&lt;b&gt;EP を「EP事業本部 → 営業本部」に改称しても増える行は org_unit の1行だけ。&lt;/b&gt;&lt;br&gt;配下の EPF / EPB の行は一切増えない（5列フルパス案なら全子孫の履歴行が増えていた）。" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=9;fontFamily=Courier New;fontColor=#333333;fillColor=#E8EAF6;strokeColor=#3949AB;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="60" y="655" width="750" height="250" as="geometry" />
+        </mxCell>
+
+        <mxCell id="D-05" value="&lt;b&gt;org_hierarchy&lt;/b&gt;　← 未来日の組織再編を含む&lt;br&gt;&lt;br&gt;org_code  parent_org_code  valid_period&lt;br&gt;HR        NULL             [2015-04-01, )   ←ルート&lt;br&gt;HRINF     HR               [2022-04-01, 2026-10-01)&lt;br&gt;HRINF     GLB              [2026-10-01, )   ←&lt;b&gt;未来日予約&lt;/b&gt;&lt;br&gt;HRANL     HRINF            [2024-04-01, )&lt;br&gt;EP        NULL             [2016-04-01, )   ←ルート&lt;br&gt;EPF       EP               [2016-04-01, )&lt;br&gt;EPB       EPF              [2016-04-01, )&lt;br&gt;GLB       NULL             [2014-04-01, )   ←ルート&lt;br&gt;USOPS     GLB              [2014-04-01, )   ←会社跨ぎ&lt;br&gt;VNOPS     NULL             [2015-04-01, )   ←独立ルート&lt;br&gt;&lt;br&gt;2026-10-01 付で人事インフラ部をグローバル事業本部の下へ&lt;br&gt;移す再編を、今日の時点で登録済み。&lt;b&gt;反映バッチは不要&lt;/b&gt;で、&lt;br&gt;参照側の基準日が到達すれば自動的に切り替わる。" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=9;fontFamily=Courier New;fontColor=#333333;fillColor=#E8EAF6;strokeColor=#3949AB;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="830" y="655" width="570" height="250" as="geometry" />
+        </mxCell>
+
+        <mxCell id="D-06" value="&lt;b&gt;assignment&lt;/b&gt;（案A）　← 兼務と未来日異動を含む&lt;br&gt;&lt;br&gt;person_id  org_code  is_primary  valid_period&lt;br&gt;1          HRINF     true        [2022-04-01, )&lt;br&gt;1          HRANL     false       [2024-04-01, )   ←&lt;b&gt;兼務（同時2組織）&lt;/b&gt;&lt;br&gt;2          HR        true        [2018-04-01, 2026-09-01)&lt;br&gt;2          HRINF     true        [2026-09-01, )   ←&lt;b&gt;未来日の異動予約&lt;/b&gt;&lt;br&gt;3          EPB       true        [2019-04-01, 2025-04-01)&lt;br&gt;3          USOPS     true        [2025-04-01, )   ←転籍に伴う配属変更&lt;br&gt;&lt;br&gt;person_id 1 は HRINF と HRANL に同時配属されている。EXCLUDE は&lt;br&gt;(person_id, org_code, period) なので&lt;b&gt;別組織なら同時配属が通る&lt;/b&gt;。&lt;br&gt;同じ HRINF に期間の重なる行を入れようとした場合だけ弾かれる。&lt;br&gt;兼務工数（HRINF 70% / HRANL 30% 等）は kintone 側で持つ。" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=9;fontFamily=Courier New;fontColor=#333333;fillColor=#E8EAF6;strokeColor=#3949AB;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="60" y="925" width="750" height="215" as="geometry" />
+        </mxCell>
+
+        <mxCell id="D-07" value="&lt;b&gt;position&lt;/b&gt; / &lt;b&gt;position_holder&lt;/b&gt;&lt;br&gt;&lt;br&gt;position_id  org_code  position_name        valid_period&lt;br&gt;1            HR        人事本部 本部長      [2015-04-01, )&lt;br&gt;2            HRINF     人事インフラ部 部長  [2022-04-01, )&lt;br&gt;&lt;br&gt;person_id  position_id  valid_period&lt;br&gt;2          1            [2018-04-01, )&lt;br&gt;1          2            [2022-04-01, )&lt;br&gt;&lt;br&gt;&lt;b&gt;assignment_bt&lt;/b&gt;（案B）　同じ事実の遡及訂正の例&lt;br&gt;&lt;br&gt;person  org    valid_period            recorded_period&lt;br&gt;1       HRINF  [2022-04-01, )          [2022-03-25, 2026-05-10)&lt;br&gt;1       HRINF  [2022-05-01, )          [2026-05-10, )&lt;br&gt;&lt;br&gt;「配属開始は 4/1 ではなく 5/1 だった」と 2026-05-10 に訂正。&lt;br&gt;旧行は消さず recorded_period を閉じる（append-only）。&lt;br&gt;→ 締日前に出した数値も再現できる。" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=9;fontFamily=Courier New;fontColor=#333333;fillColor=#FFF3E0;strokeColor=#FB8C00;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="830" y="925" width="570" height="215" as="geometry" />
+        </mxCell>
+
+        <mxCell id="s-h3" value="③ このデータで as-of クエリ・フルパス展開・集計軸を確認する" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontStyle=1;fontColor=#1A2538;" vertex="1" parent="1">
+          <mxGeometry x="60" y="1160" width="900" height="24" as="geometry" />
+        </mxCell>
+
+        <mxCell id="Q-01" value="&lt;b&gt;as-of クエリ：3つの基準日で同じ SQL を投げる&lt;/b&gt;&lt;br&gt;&lt;br&gt;SELECT * FROM assignment WHERE valid_period @&amp;gt; DATE '____';&lt;br&gt;&lt;br&gt;&lt;b&gt;2026-08-03（今日）&lt;/b&gt;&lt;br&gt;　person 2 の主務 = HR（人事本部）&lt;br&gt;　person 1 = HRINF 主務 ＋ HRANL 兼務&lt;br&gt;&lt;br&gt;&lt;b&gt;2026-09-01&lt;/b&gt;&lt;br&gt;　person 2 の主務 = HRINF（人事インフラ部）&lt;br&gt;　→ 異動が自動的に反映される。&lt;b&gt;バッチ実行なし&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;2026-10-01&lt;/b&gt;&lt;br&gt;　配属行は 9/1 と同じだが、HRINF の親が GLB に変わる&lt;br&gt;　→ person 1・2 の所属本部が&lt;br&gt;　　 人事本部 から グローバル事業本部 に変わる&lt;br&gt;　→ &lt;b&gt;配属を1行も触らずに本部別集計が変わる&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=9;fontFamily=Courier New;fontColor=#333333;fillColor=#E0F7FA;strokeColor=#00838F;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="60" y="1190" width="660" height="240" as="geometry" />
+        </mxCell>
+
+        <mxCell id="Q-02" value="&lt;b&gt;org_full_path('2026-08-03') の出力&lt;/b&gt;　← 現行 kintone の見え方&lt;br&gt;&lt;br&gt;org_code depth layer      level1              level2      level3          level4 level5&lt;br&gt;HR       1     honbu      人事本部            NULL        NULL            NULL   NULL&lt;br&gt;HRINF    2     bu         人事本部            &lt;b&gt;NULL&lt;/b&gt;        人事インフラ部  NULL   NULL&lt;br&gt;HRANL    3     team       人事本部            &lt;b&gt;NULL&lt;/b&gt;        人事インフラ部  &lt;b&gt;NULL&lt;/b&gt;   HR数値分析チーム&lt;br&gt;EP       1     honbu      EP事業本部          NULL        NULL            NULL   NULL&lt;br&gt;EPF      2     fuku_honbu EP事業本部          EP事業副部  NULL            NULL   NULL&lt;br&gt;EPB      3     bu         EP事業本部          EP事業副部  EP事業部        NULL   NULL&lt;br&gt;USOPS    2     bu         グローバル事業本部  &lt;b&gt;NULL&lt;/b&gt;        Cybozu US       NULL   NULL&lt;br&gt;VNOPS    1     honbu      Cybozu Vietnam      NULL        NULL            NULL   NULL&lt;br&gt;&lt;br&gt;&lt;b&gt;列位置は depth ではなく layer_order で決まる。&lt;/b&gt;&lt;br&gt;HRANL は depth 3 だが level5 に入り、level2 と level4 は NULL のまま残る。&lt;br&gt;これが現行 kintone の非正規化フルパス（level2 IS NULL AND level3 IS NOT NULL）と一致する。&lt;br&gt;→ 既存業務アプリの WHERE level3 = 'EP事業部' がそのまま動く。" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=9;fontFamily=Courier New;fontColor=#333333;fillColor=#E0F7FA;strokeColor=#00838F;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="740" y="1190" width="660" height="240" as="geometry" />
+        </mxCell>
+
+        <mxCell id="Q-03" value="&lt;b&gt;集計軸は3つあり、互いに一致しない（2026-08-03 時点）&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;① 会社で数える&lt;/b&gt;&lt;br&gt;　CB = HR / HRINF / HRANL / EP / EPF / EPB / GLB（7組織）&lt;br&gt;　CBUS = USOPS（1）　CBVN = VNOPS（1）&lt;br&gt;&lt;br&gt;&lt;b&gt;② 階層区分 layer_order で数える ← 正しい軸&lt;/b&gt;&lt;br&gt;　「部」レベル bu(3) = HRINF, EPB, USOPS　→ &lt;b&gt;3組織&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;③ ツリーの深さ depth で数える ← 使ってはいけない&lt;/b&gt;&lt;br&gt;　depth = 3 = HRANL, EPB　→ &lt;b&gt;2組織&lt;/b&gt;&lt;br&gt;&lt;br&gt;depth で「部レベルの人員数」を数えると、&lt;br&gt;・HRINF（depth 2）と USOPS（depth 2）が&lt;b&gt;漏れる&lt;/b&gt;&lt;br&gt;・HRANL（チーム）が&lt;b&gt;混ざる&lt;/b&gt;&lt;br&gt;&lt;br&gt;また ① と ② も別軸である。グローバル事業本部の配下人員数には&lt;br&gt;CBUS の person 3 が含まれる（会社別集計では CBUS 側で数える）。" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=9;fontFamily=Courier New;fontColor=#333333;fillColor=#FFF8E1;strokeColor=#FFB300;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="60" y="1450" width="660" height="215" as="geometry" />
+        </mxCell>
+
+        <mxCell id="S-NOTE" value="&lt;b&gt;Scope&lt;/b&gt;：ER図（1ページ目）の理解を補助するためのダミーデータ。実データではない。&#10;&lt;b&gt;含めた検証ケース&lt;/b&gt;：歯抜け階層（HR→HRINF、HRINF→HRANL、GLB→USOPS）／歯抜けなし階層（EP→EPF→EPB）／フォレスト構造（ルート4つ）／会社跨ぎ（GLB配下に CBUS）／独立ルート（VNOPS）／転籍（person 3、person_id 不変）／改称（EP、配下の履歴行が増えない）／兼務（person 1 の同時2組織）／未来日の異動（person 2、2026-09-01）／未来日の組織再編（HRINF の親、2026-10-01）／遡及訂正（assignment_bt）&#10;&lt;b&gt;対象外&lt;/b&gt;：kintone 側が持つ情報（兼務工数・マネジメント役割・個人情報）は含まない。組織図の描画も対象外。&#10;&lt;b&gt;注記&lt;/b&gt;：会社名・組織名・社員番号はすべて仮のもの。日付は基準日 2026-08-03 との前後関係を示すために設定している。&#10;&lt;b&gt;入力ソース&lt;/b&gt;：db/schema.sql ／ docs/SPEC.md 2-4章 ／ docs/REQUIREMENTS.md 3章　　v1.0（初版）" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#444444;spacingLeft=8;spacingTop=6;strokeColor=#D0D0D0;fillColor=#FAFAFA;" vertex="1" parent="1">
+          <mxGeometry x="740" y="1450" width="660" height="215" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

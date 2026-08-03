@@ -1,0 +1,160 @@
+<mxfile host="app.diagrams.net" type="device">
+  <diagram id="hrcore-er-v3" name="ER図（全体 / L2）">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1760" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="title" value="HRCore — ER図（全体 / L2）　v3.0" style="text;html=1;align=center;verticalAlign=middle;fontSize=18;fontStyle=1;fontColor=#1A2538;" vertex="1" parent="1">
+          <mxGeometry x="580" y="12" width="600" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" value="📅 = 有効期間 daterange（半開区間 [) ／ 無期限は upper NULL）　⛔ = EXCLUDE 制約が保証する「同時に1つ」の単位　🚩 = 集計を絞るフラグ" style="text;html=1;align=center;verticalAlign=middle;fontSize=11;fontColor=#546E7A;" vertex="1" parent="1">
+          <mxGeometry x="480" y="42" width="800" height="18" as="geometry" />
+        </mxCell>
+
+        <!-- FK edges -->
+        <mxCell id="R-001" value="1:1" style="edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;strokeColor=#607D8B;strokeWidth=1.5;endArrow=ERone;startArrow=ERone;fontSize=9;fontColor=#455A64;exitX=0.25;exitY=1;entryX=0.25;entryY=0;" edge="1" parent="1" source="E-004" target="E-019"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="R-002" value="1:1" style="edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;strokeColor=#607D8B;strokeWidth=1.5;endArrow=ERone;startArrow=ERone;fontSize=9;fontColor=#455A64;exitX=0.75;exitY=1;entryX=0.75;entryY=0;" edge="1" parent="1" source="E-019" target="E-020"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="R-003" value="1..N" style="edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;strokeColor=#607D8B;strokeWidth=1.5;endArrow=ERmany;startArrow=ERone;fontSize=9;fontColor=#455A64;exitX=1;exitY=0.5;entryX=0;entryY=0.1;" edge="1" parent="1" source="E-001" target="E-005"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="R-004" value="通勤" style="edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;strokeColor=#607D8B;strokeWidth=1.5;endArrow=ERmany;startArrow=ERone;fontSize=9;fontColor=#455A64;exitX=1;exitY=0.3;entryX=0;entryY=0.45;" edge="1" parent="1" source="E-002" target="E-005"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="R-005" value="届出" style="edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;strokeColor=#607D8B;strokeWidth=1.5;endArrow=ERmany;startArrow=ERone;fontSize=9;fontColor=#455A64;exitX=1;exitY=0.7;entryX=0;entryY=0.6;" edge="1" parent="1" source="E-002" target="E-005"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="R-006" value="1..N" style="edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;strokeColor=#607D8B;strokeWidth=1.5;endArrow=ERmany;startArrow=ERone;fontSize=9;fontColor=#455A64;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="E-020" target="E-005"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="R-007" value="1..N" style="edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;strokeColor=#7CB342;strokeWidth=1.5;endArrow=ERmany;startArrow=ERone;fontSize=9;fontColor=#558B2F;exitX=1;exitY=0.5;entryX=0;entryY=0.85;" edge="1" parent="1" source="E-021" target="E-005"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="R-008" value="1..N" style="edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;strokeColor=#607D8B;strokeWidth=1.5;endArrow=ERmany;startArrow=ERone;fontSize=9;fontColor=#455A64;exitX=0.3;exitY=1;entryX=0.3;entryY=0;" edge="1" parent="1" source="E-005" target="E-013"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="R-009" value="1..N" style="edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;strokeColor=#7CB342;strokeWidth=1.5;endArrow=ERmany;startArrow=ERone;fontSize=9;fontColor=#558B2F;exitX=1;exitY=0.5;entryX=0;entryY=0.3;" edge="1" parent="1" source="E-014" target="E-013"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="R-010" value="1..N" style="edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;strokeColor=#607D8B;strokeWidth=1.5;endArrow=ERmany;startArrow=ERone;fontSize=9;fontColor=#455A64;exitX=0.3;exitY=1;entryX=0.3;entryY=0;" edge="1" parent="1" source="E-013" target="E-022"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="R-011" value="1..N" style="edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;strokeColor=#607D8B;strokeWidth=1.5;endArrow=ERmany;startArrow=ERone;fontSize=9;fontColor=#455A64;exitX=1;exitY=0.6;entryX=0;entryY=0.15;" edge="1" parent="1" source="E-004" target="E-010"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="R-012" value="1..N" style="edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;strokeColor=#607D8B;strokeWidth=1.5;endArrow=ERmany;startArrow=ERone;fontSize=9;fontColor=#455A64;exitX=1;exitY=0.8;entryX=0;entryY=0.15;" edge="1" parent="1" source="E-004" target="E-011"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="R-013" value="1..N" style="edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;strokeColor=#607D8B;strokeWidth=1.5;endArrow=ERmany;startArrow=ERone;fontSize=9;fontColor=#455A64;exitX=0.7;exitY=1;entryX=0;entryY=0.3;" edge="1" parent="1" source="E-005" target="E-009"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="R-014" value="1..N" style="edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;strokeColor=#607D8B;strokeWidth=1.5;endArrow=ERmany;startArrow=ERone;fontSize=9;fontColor=#455A64;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="E-008" target="E-009"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="R-015" value="1..N" style="edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;strokeColor=#7CB342;strokeWidth=1.5;endArrow=ERmany;startArrow=ERone;fontSize=9;fontColor=#558B2F;exitX=1;exitY=0.5;entryX=0;entryY=0.8;" edge="1" parent="1" source="E-015" target="E-008"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="R-016" value="1..N" style="edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;strokeColor=#607D8B;strokeWidth=1.5;endArrow=ERmany;startArrow=ERone;fontSize=9;fontColor=#455A64;exitX=1;exitY=0.15;entryX=0;entryY=0.15;" edge="1" parent="1" source="E-001" target="E-006"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="R-017" value="1..N" style="edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;strokeColor=#7CB342;strokeWidth=1.5;endArrow=ERmany;startArrow=ERone;fontSize=9;fontColor=#558B2F;exitX=1;exitY=0.15;entryX=0;entryY=0.4;" edge="1" parent="1" source="E-003" target="E-006"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="R-018" value="1..N" style="edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;strokeColor=#607D8B;strokeWidth=1.5;endArrow=ERmany;startArrow=ERone;fontSize=9;fontColor=#455A64;exitX=1;exitY=0.95;entryX=0;entryY=0.25;" edge="1" parent="1" source="E-004" target="E-017"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="R-019" value="1..N" style="edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;strokeColor=#607D8B;strokeWidth=1.5;endArrow=ERmany;startArrow=ERone;fontSize=9;fontColor=#455A64;exitX=1;exitY=0.35;entryX=0;entryY=0.25;" edge="1" parent="1" source="E-005" target="E-024"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <!-- logical reference edges (dashed) -->
+        <mxCell id="R-030" value="org_code" style="edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;dashed=1;strokeColor=#F57C00;strokeWidth=1.5;endArrow=ERmany;startArrow=ERone;fontSize=9;fontColor=#E65100;exitX=0.25;exitY=1;entryX=0.25;entryY=0;" edge="1" parent="1" source="E-006" target="E-007"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="R-031" value="parent_org_code" style="edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;dashed=1;strokeColor=#F57C00;strokeWidth=1.5;endArrow=ERmany;startArrow=ERone;fontSize=9;fontColor=#E65100;exitX=0.75;exitY=1;entryX=0.75;entryY=0;" edge="1" parent="1" source="E-006" target="E-007"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="R-032" value="org_code" style="edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;dashed=1;strokeColor=#F57C00;strokeWidth=1.5;endArrow=ERmany;startArrow=ERone;fontSize=9;fontColor=#E65100;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="E-007" target="E-016"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="R-033" value="org_code" style="edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;dashed=1;strokeColor=#F57C00;strokeWidth=1.5;endArrow=ERmany;startArrow=ERone;fontSize=9;fontColor=#E65100;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="E-016" target="E-008"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="R-034" value="org_code" style="edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;dashed=1;strokeColor=#F57C00;strokeWidth=1.5;endArrow=ERmany;startArrow=ERone;fontSize=9;fontColor=#E65100;exitX=1;exitY=0.85;entryX=0;entryY=0.55;" edge="1" parent="1" source="E-006" target="E-010"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="R-035" value="wg_code" style="edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;dashed=1;strokeColor=#F57C00;strokeWidth=1.5;endArrow=ERmany;startArrow=ERone;fontSize=9;fontColor=#E65100;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="E-018" target="E-017"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="R-036" value="fn_code" style="edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;dashed=1;strokeColor=#F57C00;strokeWidth=1.5;endArrow=ERmany;startArrow=ERone;fontSize=9;fontColor=#E65100;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="E-023" target="E-024"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <!-- Column 1 : master -->
+        <mxCell id="E-001" value="&lt;b&gt;company&lt;/b&gt;　会社&lt;br&gt;&lt;br&gt;🔑 company_code&lt;br&gt;company_name / _en&lt;br&gt;standard_weekly_hours　FTE の分母&lt;br&gt;📅 valid_period" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=10;fontColor=#333333;fillColor=#E8EAF6;strokeColor=#3949AB;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="50" y="90" width="240" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="E-002" value="&lt;b&gt;location&lt;/b&gt;　拠点&lt;br&gt;&lt;br&gt;🔑 location_code&lt;br&gt;location_name / _en&lt;br&gt;📅 valid_period" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=10;fontColor=#333333;fillColor=#E8EAF6;strokeColor=#3949AB;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="50" y="205" width="240" height="88" as="geometry" />
+        </mxCell>
+        <mxCell id="E-003" value="&lt;b&gt;org_layer&lt;/b&gt;　組織階層区分&lt;br&gt;&lt;br&gt;🔑 layer_code&lt;br&gt;layer_name / layer_order&lt;br&gt;&lt;b&gt;🚩 is_countable&lt;/b&gt;　階層集計の対象か&lt;br&gt;&lt;br&gt;0=会社（役員設置用）1=本部 … 5=チーム" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=10;fontColor=#333333;fillColor=#F1F8E9;strokeColor=#7CB342;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="50" y="308" width="240" height="112" as="geometry" />
+        </mxCell>
+        <mxCell id="E-014" value="&lt;b&gt;employment_status_type&lt;/b&gt;&lt;br&gt;&lt;br&gt;🔑 status_code / status_name&lt;br&gt;&lt;b&gt;🚩 is_active&lt;/b&gt;　在籍として数えるか&lt;br&gt;&lt;br&gt;在籍 / 休職 / 退職" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=10;fontColor=#333333;fillColor=#F1F8E9;strokeColor=#7CB342;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="50" y="435" width="240" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="E-021" value="&lt;b&gt;employment_type&lt;/b&gt;　社員区分　&lt;b&gt;[追加]&lt;/b&gt;&lt;br&gt;&lt;br&gt;🔑 type_code / type_name&lt;br&gt;&lt;b&gt;🚩 is_employee&lt;/b&gt;　雇用契約があるか&lt;br&gt;&lt;br&gt;正社員 / 契約社員 / 業務委託 / 派遣&lt;br&gt;&lt;i&gt;外部人材を人員集計から外すのに使う&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=10;fontColor=#333333;fillColor=#F1F8E9;strokeColor=#7CB342;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="50" y="545" width="240" height="118" as="geometry" />
+        </mxCell>
+        <mxCell id="E-015" value="&lt;b&gt;position_grade&lt;/b&gt;　役職階層&lt;br&gt;&lt;br&gt;🔑 grade_code / grade_name&lt;br&gt;grade_order　0=役員 1=本部長 … 5=TL&lt;br&gt;&lt;br&gt;&lt;i&gt;&lt;b&gt;org_layer と 1:1 対応しない&lt;/b&gt;&lt;br&gt;副本部長・副部長は本部・部の No.2&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=10;fontColor=#333333;fillColor=#F1F8E9;strokeColor=#7CB342;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="50" y="678" width="240" height="112" as="geometry" />
+        </mxCell>
+
+        <!-- Column 2 : person -->
+        <mxCell id="E-004" value="&lt;b&gt;person&lt;/b&gt;　個人&lt;br&gt;&lt;br&gt;🔑 person_id&lt;br&gt;group_joined_on　グループ通算入社日&lt;br&gt;created_at&lt;br&gt;&lt;i&gt;転籍をまたいで不変&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=10;fontColor=#333333;fillColor=#E8EAF6;strokeColor=#3949AB;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="320" y="90" width="250" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="E-019" value="&lt;b&gt;person_name&lt;/b&gt;　氏名　&lt;b&gt;[追加]&lt;/b&gt;&lt;br&gt;&lt;i&gt;公開。組織図・名簿に出る&lt;/i&gt;&lt;br&gt;&lt;br&gt;🔑🔗 person_id&lt;br&gt;full_name / full_name_kana" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=10;fontColor=#333333;fillColor=#E8EAF6;strokeColor=#3949AB;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="320" y="205" width="250" height="88" as="geometry" />
+        </mxCell>
+        <mxCell id="E-020" value="&lt;b&gt;person_demographics&lt;/b&gt;　&lt;b&gt;[追加]&lt;/b&gt;&lt;br&gt;&lt;i&gt;&lt;b&gt;非公開&lt;/b&gt;。人的資本開示の指標算出用&lt;/i&gt;&lt;br&gt;&lt;br&gt;🔑🔗 person_id&lt;br&gt;gender / birth_date&lt;br&gt;&lt;i&gt;GRANT で分析ロールから隔離する&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=10;fontColor=#333333;fillColor=#FCE4EC;strokeColor=#C2185B;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="320" y="308" width="250" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="E-005" value="&lt;b&gt;employment&lt;/b&gt;　雇用&lt;br&gt;&lt;br&gt;🔗 person_id / company_code&lt;br&gt;🔗 employment_type&lt;br&gt;employee_no / account_name&lt;br&gt;hire_category　入社区分&lt;br&gt;work_style&lt;br&gt;🔗 location_code　通勤拠点&lt;br&gt;🔗 residence_location_code　届出拠点&lt;br&gt;📅 valid_period&lt;br&gt;&lt;br&gt;⛔ person × 期間　→ 同時に1社&lt;br&gt;&lt;i&gt;下限が未来日 = 入社前（行の存在で表す）&lt;br&gt;外部人材も本テーブルで扱う&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=10;fontColor=#333333;fillColor=#E8EAF6;strokeColor=#3949AB;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="320" y="423" width="250" height="222" as="geometry" />
+        </mxCell>
+        <mxCell id="E-013" value="&lt;b&gt;employment_status&lt;/b&gt;　在籍状況　&lt;b&gt;[追加]&lt;/b&gt;&lt;br&gt;&lt;br&gt;🔗 person_id / status_code&lt;br&gt;event_type　入社/復職/休職/退職&lt;br&gt;reason　事由&lt;br&gt;📅 valid_period&lt;br&gt;&lt;br&gt;⛔ person × 期間　→ 同時に1状態&lt;br&gt;&lt;i&gt;&lt;b&gt;休職しても assignment は切らない&lt;/b&gt;&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=10;fontColor=#333333;fillColor=#E8EAF6;strokeColor=#3949AB;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="320" y="660" width="250" height="145" as="geometry" />
+        </mxCell>
+        <mxCell id="E-022" value="&lt;b&gt;employment_condition&lt;/b&gt;　労働条件　&lt;b&gt;[追加]&lt;/b&gt;&lt;br&gt;&lt;br&gt;🔗 person_id&lt;br&gt;scheduled_hours　所定労働時間&lt;br&gt;work_days_per_week　週の勤務日数&lt;br&gt;fixed_overtime_hours　固定残業&lt;br&gt;worktime_mgmt_type　労働時間管理&lt;br&gt;pay_type　給与体系（金額は持たない）&lt;br&gt;📅 valid_period&lt;br&gt;&lt;br&gt;⛔ person × 期間&lt;br&gt;&lt;i&gt;&lt;b&gt;FTE 換算の基礎&lt;/b&gt;。雇用とは独立して切れる&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=10;fontColor=#333333;fillColor=#E8EAF6;strokeColor=#3949AB;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="320" y="820" width="250" height="180" as="geometry" />
+        </mxCell>
+
+        <!-- Column 3 : org / position -->
+        <mxCell id="E-006" value="&lt;b&gt;org_unit&lt;/b&gt;　組織&lt;br&gt;&lt;br&gt;org_code　&lt;i&gt;PK なし&lt;/i&gt;&lt;br&gt;org_name / _en&lt;br&gt;🔗 company_code / layer_code&lt;br&gt;📅 valid_period&lt;br&gt;&lt;br&gt;⛔ org_code × 期間&lt;br&gt;&lt;i&gt;会社ごとに layer='company' の&lt;br&gt;会社相当組織を1つ置く（役員設置用）&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=10;fontColor=#333333;fillColor=#E8EAF6;strokeColor=#3949AB;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="600" y="90" width="260" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="E-007" value="&lt;b&gt;org_hierarchy&lt;/b&gt;　組織階層&lt;br&gt;&lt;br&gt;org_code / parent_org_code&lt;br&gt;📅 valid_period&lt;br&gt;&lt;br&gt;⛔ org_code × 期間　→ 親は同時に1つ&lt;br&gt;⚡ 親の layer_order &amp;lt; 子（歯抜けは許容）&lt;br&gt;&lt;i&gt;隣接リスト。フォレスト。深さ上限6&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=10;fontColor=#333333;fillColor=#E8EAF6;strokeColor=#3949AB;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="600" y="258" width="260" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="E-016" value="&lt;b&gt;org_external_code&lt;/b&gt;　&lt;b&gt;[追加]&lt;/b&gt;&lt;br&gt;&lt;br&gt;org_code / system_name / external_code&lt;br&gt;📅 valid_period&lt;br&gt;&lt;br&gt;&lt;i&gt;⚠ 現行では外部コードは職能側にある。&lt;br&gt;組織側に必要かは未確認（削除候補）&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=10;fontColor=#333333;fillColor=#ECEFF1;strokeColor=#78909C;strokeWidth=2;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="600" y="406" width="260" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="E-008" value="&lt;b&gt;position&lt;/b&gt;　役職&lt;br&gt;&lt;br&gt;🔑 position_id&lt;br&gt;org_code&lt;br&gt;position_name / _en&lt;br&gt;🔗 grade_code　役職階層&lt;br&gt;📅 valid_period&lt;br&gt;&lt;i&gt;役員は会社相当組織に設置する&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=10;fontColor=#333333;fillColor=#E8EAF6;strokeColor=#3949AB;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="600" y="534" width="260" height="128" as="geometry" />
+        </mxCell>
+        <mxCell id="E-009" value="&lt;b&gt;position_holder&lt;/b&gt;　役職任命&lt;br&gt;&lt;br&gt;🔗 person_id / position_id&lt;br&gt;📅 valid_period&lt;br&gt;&lt;br&gt;⛔ person × position × 期間&lt;br&gt;&lt;i&gt;同一役職に2人就ける（要確認）&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=10;fontColor=#333333;fillColor=#E8EAF6;strokeColor=#3949AB;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="600" y="680" width="260" height="115" as="geometry" />
+        </mxCell>
+
+        <!-- Column 4 : assignment / audit -->
+        <mxCell id="E-010" value="&lt;b&gt;assignment&lt;/b&gt;　配属　&lt;b&gt;[案A]&lt;/b&gt;&lt;br&gt;&lt;br&gt;🔗 person_id&lt;br&gt;org_code&lt;br&gt;is_primary　主務/兼務&lt;br&gt;event_type / reason　異動理由&lt;br&gt;📅 valid_period&lt;br&gt;&lt;br&gt;⛔ person × org × 期間&lt;br&gt;　&lt;i&gt;複数組織への同時配属は可&lt;/i&gt;&lt;br&gt;&lt;br&gt;&lt;i&gt;兼務工数は kintone 側。&lt;br&gt;&lt;b&gt;休職中も切らない&lt;/b&gt;&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=10;fontColor=#333333;fillColor=#E8EAF6;strokeColor=#3949AB;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="890" y="90" width="250" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="E-011" value="&lt;b&gt;assignment_bt&lt;/b&gt;　配属　&lt;b&gt;[案B]&lt;/b&gt;&lt;br&gt;&lt;br&gt;🔗 person_id&lt;br&gt;org_code / is_primary&lt;br&gt;📅 valid_period&lt;br&gt;🕐 recorded_period　tstzrange&lt;br&gt;&lt;br&gt;⛔ person × org × 両期間&lt;br&gt;⚙ assignment_upsert()&lt;br&gt;&lt;i&gt;バイテンポラル。PoC で並行検証&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=10;fontColor=#333333;fillColor=#FFF3E0;strokeColor=#FB8C00;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="890" y="288" width="250" height="152" as="geometry" />
+        </mxCell>
+        <mxCell id="E-012" value="&lt;b&gt;change_log&lt;/b&gt;　変更ログ&lt;br&gt;&lt;br&gt;🔑 id&lt;br&gt;table_name / operation&lt;br&gt;changed_at / changed_by&lt;br&gt;before_row / after_row jsonb&lt;br&gt;&lt;i&gt;案A の監査用。トリガは未実装&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=10;fontColor=#333333;fillColor=#F3E5F5;strokeColor=#8E24AA;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="890" y="458" width="250" height="115" as="geometry" />
+        </mxCell>
+
+        <mxCell id="V-002" value="&lt;b&gt;集計を絞る3つのフラグ&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;🚩 employment_type.is_employee&lt;/b&gt;&lt;br&gt;　雇用契約があるか&lt;br&gt;　→ 社員数 / 稼働人員数&lt;br&gt;&lt;br&gt;&lt;b&gt;🚩 employment_status_type.is_active&lt;/b&gt;&lt;br&gt;　在籍として数えるか&lt;br&gt;　→ 在籍人員 / 配属人員&lt;br&gt;&lt;br&gt;&lt;b&gt;🚩 org_layer.is_countable&lt;/b&gt;&lt;br&gt;　階層集計の対象か&lt;br&gt;　→ 会社相当組織を除外&lt;br&gt;&lt;br&gt;&lt;i&gt;集計側が値を列挙せずフラグで絞れる&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=10;fontColor=#333333;fillColor=#FFFDE7;strokeColor=#F9A825;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="890" y="591" width="250" height="215" as="geometry" />
+        </mxCell>
+
+        <!-- Column 5 : cross-cutting -->
+        <mxCell id="E-018" value="&lt;b&gt;working_group&lt;/b&gt;　WG　&lt;b&gt;[追加]&lt;/b&gt;&lt;br&gt;&lt;br&gt;wg_code / wg_name / _en&lt;br&gt;sub_category&lt;br&gt;📅 valid_period&lt;br&gt;&lt;i&gt;階層外の活動体。発足・解散がある&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=10;fontColor=#333333;fillColor=#E8EAF6;strokeColor=#3949AB;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1170" y="90" width="250" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="E-017" value="&lt;b&gt;working_group_member&lt;/b&gt;　&lt;b&gt;[追加]&lt;/b&gt;&lt;br&gt;&lt;br&gt;🔗 person_id / wg_code&lt;br&gt;role　manager / member&lt;br&gt;📅 valid_period&lt;br&gt;&lt;br&gt;⛔ person × wg × 期間&lt;br&gt;　&lt;i&gt;複数 WG の同時参加は可&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=10;fontColor=#333333;fillColor=#E8EAF6;strokeColor=#3949AB;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1170" y="218" width="250" height="125" as="geometry" />
+        </mxCell>
+        <mxCell id="E-023" value="&lt;b&gt;job_function&lt;/b&gt;　職能　&lt;b&gt;[追加]&lt;/b&gt;&lt;br&gt;&lt;i&gt;現行の「タグ一覧」。マトリクスの横軸&lt;/i&gt;&lt;br&gt;&lt;br&gt;fn_code / fn_name / _en&lt;br&gt;external_code　bozuman 組織コード&lt;br&gt;📅 valid_period&lt;br&gt;&lt;br&gt;⛔ fn_code × 期間&lt;br&gt;&lt;i&gt;FE / BE / QA / PD マネジメント 等&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=10;fontColor=#333333;fillColor=#E8EAF6;strokeColor=#3949AB;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1170" y="361" width="250" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="E-024" value="&lt;b&gt;person_job_function&lt;/b&gt;　&lt;b&gt;[追加]&lt;/b&gt;&lt;br&gt;&lt;br&gt;🔗 person_id / fn_code&lt;br&gt;role　manager（職能マネージャー）/ member&lt;br&gt;📅 valid_period&lt;br&gt;&lt;br&gt;⛔ person × fn × 期間&lt;br&gt;　&lt;i&gt;複数職能の同時保持は可&lt;/i&gt;&lt;br&gt;&lt;br&gt;&lt;i&gt;組織軸と直交。職能で数えると&lt;br&gt;組織軸の合計と一致しない&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=10;fontColor=#333333;fillColor=#E8EAF6;strokeColor=#3949AB;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1170" y="519" width="250" height="155" as="geometry" />
+        </mxCell>
+
+        <!-- Column 6 : views / roles -->
+        <mxCell id="V-001" value="&lt;b&gt;kintone 公開用 ビュー・関数&lt;/b&gt;&lt;br&gt;&lt;br&gt;org_full_path(p_asof date)&lt;br&gt;org_path_current&lt;br&gt;employee_current&lt;br&gt;&lt;b&gt;employee_pending&lt;/b&gt;　入社前&lt;br&gt;assignment_current&lt;br&gt;employment_condition_current　&lt;b&gt;FTE&lt;/b&gt;&lt;br&gt;working_group_member_current&lt;br&gt;person_job_function_current&lt;br&gt;assignment_bt_current&lt;br&gt;&lt;br&gt;&lt;i&gt;・range を date 2列に展開&lt;br&gt;・is_active / is_employee を含める&lt;br&gt;・FTE は DB 側で計算して出す&lt;br&gt;・非公開属性は出さない&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=10;fontColor=#333333;fillColor=#E0F7FA;strokeColor=#00838F;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="1450" y="90" width="260" height="245" as="geometry" />
+        </mxCell>
+        <mxCell id="V-003" value="&lt;b&gt;ロールとアクセス制御&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;hrcore_hr&lt;/b&gt;　人事・労務&lt;br&gt;　全テーブルの参照・更新&lt;br&gt;&lt;br&gt;&lt;b&gt;hrcore_analyst&lt;/b&gt;　分析・BI・AI&lt;br&gt;　全テーブル参照 −&lt;br&gt;　&lt;b&gt;person_demographics を REVOKE&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;hrcore_kintone&lt;/b&gt;　Agent 経由&lt;br&gt;　公開ビューのみ&lt;br&gt;&lt;br&gt;&lt;i&gt;ビューは定義者権限で動くため、&lt;br&gt;公開ビューに GRANT すれば下の&lt;br&gt;テーブル権限なしで氏名が読める。&lt;br&gt;&lt;b&gt;RLS は不要&lt;/b&gt;（自レコード限定参照は&lt;br&gt;kintone 側のアクセス権で担保）&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=10;fontColor=#333333;fillColor=#FFF8E1;strokeColor=#FFB300;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="1450" y="353" width="260" height="250" as="geometry" />
+        </mxCell>
+        <mxCell id="V-004" value="&lt;b&gt;kintone 側が持つもの&lt;/b&gt;&lt;br&gt;&lt;i&gt;HRCore のスコープ外&lt;/i&gt;&lt;br&gt;&lt;br&gt;・緊急連絡先などの非公開情報&lt;br&gt;・&lt;b&gt;兼務工数&lt;/b&gt;（変更頻度が高い）&lt;br&gt;・マネジメント役割&lt;br&gt;　（理想/業務/組織/人材/投資）&lt;br&gt;・各業務システムの付加情報&lt;br&gt;&lt;br&gt;&lt;i&gt;兼務工数が外にあるため、組織別の&lt;br&gt;正確な FTE は HRCore 単体では&lt;br&gt;出せない（主務ベースのみ）&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=10;fontColor=#333333;fillColor=#ECEFF1;strokeColor=#78909C;strokeWidth=1.5;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="1450" y="621" width="260" height="185" as="geometry" />
+        </mxCell>
+
+        <!-- Legend -->
+        <mxCell id="LG-1" value="期間を持つコアテーブル" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;fillColor=#E8EAF6;strokeColor=#3949AB;" vertex="1" parent="1"><mxGeometry x="50" y="1030" width="175" height="26" as="geometry" /></mxCell>
+        <mxCell id="LG-8" value="太枠 = 棚卸しで追加 [追加]" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;fillColor=#E8EAF6;strokeColor=#3949AB;strokeWidth=2;" vertex="1" parent="1"><mxGeometry x="235" y="1030" width="185" height="26" as="geometry" /></mxCell>
+        <mxCell id="LG-9" value="非公開（GRANT で隔離）" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;fillColor=#FCE4EC;strokeColor=#C2185B;strokeWidth=2;" vertex="1" parent="1"><mxGeometry x="430" y="1030" width="185" height="26" as="geometry" /></mxCell>
+        <mxCell id="LG-2" value="時系列を持たないマスタ" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;fillColor=#F1F8E9;strokeColor=#7CB342;" vertex="1" parent="1"><mxGeometry x="625" y="1030" width="175" height="26" as="geometry" /></mxCell>
+        <mxCell id="LG-3" value="案B（PoC 並行検証）" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;fillColor=#FFF3E0;strokeColor=#FB8C00;" vertex="1" parent="1"><mxGeometry x="810" y="1030" width="160" height="26" as="geometry" /></mxCell>
+        <mxCell id="LG-4" value="監査" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;fillColor=#F3E5F5;strokeColor=#8E24AA;" vertex="1" parent="1"><mxGeometry x="980" y="1030" width="80" height="26" as="geometry" /></mxCell>
+        <mxCell id="LG-5" value="ビュー・関数" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;fillColor=#E0F7FA;strokeColor=#00838F;" vertex="1" parent="1"><mxGeometry x="1070" y="1030" width="110" height="26" as="geometry" /></mxCell>
+        <mxCell id="LG-10" value="ロール / 削除候補" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;fillColor=#FFF8E1;strokeColor=#FFB300;" vertex="1" parent="1"><mxGeometry x="1190" y="1030" width="140" height="26" as="geometry" /></mxCell>
+        <mxCell id="LG-6" value="&lt;font color=&quot;#455A64&quot;&gt;—|&lt; 実線 = FK 制約あり&lt;/font&gt;　／　&lt;font color=&quot;#E65100&quot;&gt;⇠ 破線 = 論理参照（FK なし）&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;fillColor=#FFFFFF;strokeColor=#607D8B;" vertex="1" parent="1"><mxGeometry x="1340" y="1030" width="370" height="26" as="geometry" /></mxCell>
+
+        <mxCell id="NOTE" value="&lt;b&gt;Scope&lt;/b&gt;：HRCore が持つ全 24 テーブル（コア17 ＋ マスタ5 ＋ 案B検証用1 ＋ 監査1）＋ ビュー8 ＋ ロール3。属性と関連に絞った L2 の図。&#10;&lt;b&gt;対象外&lt;/b&gt;：kintone 側が持つ情報（右下に列挙）／API 層・Agent 構成（SPEC.md 1章）／制約の完全な定義・設計判断の根拠（SPEC.md 3章・4章、db/schema.sql）／実例データ（&lt;b&gt;HRCore_data_er_実例データ_v3.0.drawio&lt;/b&gt;）&#10;&lt;b&gt;破線の意味&lt;/b&gt;：org_code / wg_code / fn_code への参照は FK 制約を張れない。org_unit・working_group・job_function は期間ごとに複数行を持ちコードが一意でないため（PK がない）。参照整合性はアプリ層と制約トリガで担保する。&#10;&lt;b&gt;v3.0 変更点&lt;/b&gt;：現行項目の棚卸し（tmp/fields.tsv）の論点をすべて反映。v2.0 から employment_condition / person_name / person_demographics / employment_type / job_function / person_job_function を追加（19→24）。company に FTE の分母、org_layer に is_countable と会社レベル（0）、position_grade に初期データ（役員〜TL）、employment に外部人材の受け入れ、ロールと GRANT を追加。&#10;&lt;b&gt;入力ソース&lt;/b&gt;：db/schema.sql（スキーマの単一ソース）／docs/SPEC.md 3章〜5章／tmp/fields.tsv　　&lt;b&gt;確認待ち事項&lt;/b&gt;：docs/TODO.md" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#444444;spacingLeft=8;spacingTop=6;strokeColor=#D0D0D0;fillColor=#FAFAFA;" vertex="1" parent="1">
+          <mxGeometry x="50" y="1068" width="1660" height="110" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

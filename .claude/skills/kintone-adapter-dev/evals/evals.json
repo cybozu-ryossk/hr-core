@@ -1,0 +1,54 @@
+{
+  "skill_name": "kintone-adapter-dev",
+  "evals": [
+    {
+      "id": 0,
+      "name": "readonly-inventory-adapter",
+      "prompt": "kintone の外部システムアプリ化（Agent方式）のデモを作りたい。在庫マスタ（商品コード=数値ID・商品名・在庫数・カテゴリ）をインメモリのサンプルデータで返す、読み取り専用の Adapter を TypeScript で作って。kintone の一覧でレコードを見られて、件数も出せればいい。追加や更新は不要。",
+      "expected_output": "Connect RPC の Adapter プロジェクトを scaffold し、GetCapability(select と count のみ true、record_id_type=NUMBER)・GetSchema(recordIdField + text + number + selection)・Select(fields/filter/sort/offset/limit を適用)・Count を実装。curl スモークまで案内。insert/update/delete/search は false 宣言。",
+      "files": [],
+      "assertions": [
+        "GetCapability で select と count のみ true、insert/update/delete/search は false になっている",
+        "GetCapability の record_id_type が数値型(RECORD_ID_TYPE_NUMBER)になっている",
+        "GetSchema に recordIdFieldDefinition が1つ含まれ、カテゴリが selectionFieldDefinition(options 付き)で定義されている",
+        "Select が fields・filterCondition+matchOperator・sortConditions・offset・limit を実際に適用している(固定値の返しではない)",
+        "Count が Select と同じ絞り込み条件で件数を返す実装になっている",
+        ".npmrc に @buf レジストリ設定があり、package.json に @connectrpc/connect(-node) と @buf の SDK 依存が入っている",
+        "http2 + connectNodeAdapter + router.service(AdapterService, ...) でサーバを起動する index が生成されている",
+        "curl または smoke スクリプトによる単体動作確認の手順が案内されている"
+      ]
+    },
+    {
+      "id": 1,
+      "name": "crud-inquiry-adapter",
+      "prompt": "問い合わせ管理を kintone の外部システムアプリ化で扱いたい。フィールドは 問い合わせID(数値)・件名(文字列)・本文(複数行文字列)・優先度(高/中/低のドロップダウン)・タグ(複数選択: 不具合/要望/質問)・受付日時。追加・更新・削除・一覧・件数まで対応する Adapter を TypeScript で作って。データはメモリ保持でいい。",
+      "expected_output": "全 CRUD を実装した Adapter。GetCapability で select/insert/update/delete/count を true。GetSchema で優先度=selection・タグ=multipleSelection(いずれも options)・受付日時=datetime。Insert は record_ids(RecordId) を返し、Update は UpdatedRecordInfo(record_id) を1件以上返し、Delete は record_ids で削除。oneof の case で Record/FieldDefinition を組み立てる。",
+      "files": [],
+      "assertions": [
+        "GetCapability で select・insert・update・delete・count がすべて true になっている",
+        "GetSchema で優先度が selectionFieldDefinition(options=高/中/低)、タグが multipleSelectionFieldDefinition(options=不具合/要望/質問) として定義されている",
+        "GetSchema で受付日時が datetimeFieldDefinition、本文が文字列(textFieldDefinition)として定義されている",
+        "Insert が追加レコードの record_ids(RecordId) を返す実装になっている",
+        "Update が UpdatedRecordInfo(record_id を含む) を1件以上返す実装になっている",
+        "Delete が record_ids を受け取ってメモリ上のデータを削除する実装になっている",
+        "Record と FieldDefinition が oneof(field.case / definition.case)の形で組み立てられている",
+        "Select のフィルタが複数条件を matchOperator(ALL/ANY)で AND/OR 結合している"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "textid-access-control-adapter",
+      "prompt": "顧客から、レコードIDが UUID(文字列)の外部システムを kintone アプリ化したいと相談された。案件データ(案件ID=UUID・案件名・担当者コード・金額)をインメモリで返す読み取り専用 Adapter を TypeScript で作って。kintone には標準のアクセス権が無いと聞いたので、担当者は自分が担当する案件だけ見えるように、kintone から渡ってくるユーザー情報でフィルタしてほしい。",
+      "expected_output": "record_id_type=TEXT の Adapter。RecordId/recordIdField が文字列。Select で Context のユーザー情報(user_id または user_code)を使って担当案件だけに絞り込む。文字列IDの制約(^[a-zA-Z0-9_-]{1,100}$)を考慮。GetCapability は select のみ true。金額=number, 案件名/担当者コード=text。アクセス権が Adapter 側実装である旨の説明。",
+      "files": [],
+      "assertions": [
+        "GetCapability の record_id_type が文字列型(RECORD_ID_TYPE_TEXT)になっている",
+        "recordIdField / RecordId が文字列値として扱われている(数値 bigint ではない)",
+        "Select が Context のユーザー情報(user_id または user_code)を使って結果をフィルタし、アクセス制御を Adapter 側で実現している",
+        "文字列レコードIDの制約(^[a-zA-Z0-9_-]{1,100}$)に言及または考慮した実装になっている",
+        "GetCapability で select のみ true、書き込み系(insert/update/delete)は false になっている",
+        "kintone 標準のアクセス権が外部システムアプリ化では効かないため Adapter 側で実装する、という説明がある"
+      ]
+    }
+  ]
+}
