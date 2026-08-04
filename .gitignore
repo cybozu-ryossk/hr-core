@@ -10,6 +10,10 @@ node_modules/
 .env
 .env.*
 !.env.example
+.mcp.json
+
+# kintone 生データ（実名・社員番号等の個人情報を含む）
+raw/
 
 # ログ・一時ファイル
 *.log

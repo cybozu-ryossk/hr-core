@@ -2,7 +2,7 @@
 
 HRCore（人事データ基盤）の PoC におけるシステム構成・データモデル・設計判断をまとめたドキュメント。
 
-- 最終更新: 2026-08-03
+- 最終更新: 2026-08-04
 - ステータス: PoC 実装フェーズ（設計方針は確定、詳細は PoC で固める）
 
 プロジェクトの背景・目的は `PROJECT.md`、要件は `REQUIREMENTS.md`、PoC のスコープ・検証項目は `POC.md` に記載する。
@@ -94,7 +94,6 @@ HRCore が持つのは以下の13本（`REQUIREMENTS.md` 1章のスコープ原�
 | `employment_condition` | 労働条件（所定労働時間・週の勤務日数・固定残業・労働時間管理・給与体系 × 期間） | **FTE 換算の基礎。3.4 参照** |
 | `org_unit` | 組織（組織コード、組織名、英語名、所属会社、階層区分） | |
 | `org_hierarchy` | 組織階層（親子関係、期間） | 最大5階層。**フォレスト構造**（複数ルート）を許す |
-| `org_external_code` | 組織コードの外部システム対応表（bozuman 等） | 情報システム本部への連携で使う |
 | `position` | 役職（設置組織 × 役職名 × 役職階層 × 期間） | |
 | `position_holder` | 役職任命（person × position × 期間） | |
 | `assignment` | 配属（person × org_unit × 期間、主務/兼務区分、異動理由） | 兼務工数は持たない（kintone 側） |
@@ -107,7 +106,7 @@ HRCore が持つのは以下の13本（`REQUIREMENTS.md` 1章のスコープ原�
 
 - `org_layer` — 組織階層区分（会社／本部／副本部／部／副部／チーム）。`is_countable` フラグを持つ
 - `employment_status_type` — 在籍状況の区分（在籍／休職／退職）。`is_active` フラグを持つ。**3.8 参照**
-- `employment_type` — 社員区分（正社員／契約社員／業務委託／派遣）。`is_employee` フラグを持つ。**3.8 参照**
+- `employment_type` — 社員区分（現行の「社員区分」フィールドに沿った18種類。代表取締役社長・執行役員・無期雇用・有期雇用・派遣契約・業務委託契約・出向契約 等）。`is_employee` フラグを持つ。**3.8 参照**
 - `position_grade` — 役職階層（役員／本部長／副本部長／部長／副部長／チームリーダー）。**`org_layer` と 1:1 対応しない。3.7 参照**
 
 階層区分5段階・歯抜け許容・集計軸の業務ルールは `REQUIREMENTS.md` 3章を参照。
@@ -157,6 +156,10 @@ assignment          p1 HRINF true [2022-04-01,)      ← 切らない
 
 在籍イベント（入社・復職・休職・退職）は `employment_status`、異動理由は `assignment` に持つ。1テーブル1事実になり、離職率は `employment_status` だけ、異動率は `assignment` だけで算出できる。「入社」は在籍開始と初回配属の両方に現れるが、この重複は許容する（全イベントを1本の `personnel_event` に集約する案は、状態と履歴の二重管理になり課題②の再発になるため採らない）。
 
+**休職は細分化しない（人事・労務確認、2026-08-04）**
+
+産休・育休・私傷病・介護のいずれも休職中は `is_active = false` で共通のため、`employment_status_type` に個別の状態区分は追加しない。区分が必要になる基準は「その状態が `is_active` の判定を変えるか」であり、この4種はいずれも変えない。一方で `reason` をフリーテキストのままにすると、男性育児休業取得率（3.5 参照）のような開示指標の集計が表記ゆれで漏れる。**`reason` の値は CHECK 制約または小さな参照テーブルで固定し、状態は増やさず理由の値だけ統制する。**
+
 **ワーキンググループを `org_unit` に入れなかった理由**
 
 `org_unit` + `org_hierarchy` は「親は同時に1つ」「`layer_order` が単調増加」を前提にしている。WG は階層外・横断・複数所属なので、この制約に載せると `org_layer` に6段目を足すような歪んだ表現になる。別エンティティ2本（`working_group` / `working_group_member`）で持つ。
@@ -197,10 +200,12 @@ person_demographics gender / birth_date                           … 非公開�
 
 人的資本開示の指標は経年で報告するため、時系列基盤に置く価値が構造的に高い。kintone の非公開マスタに残すと、開示のたびに「当時の組織・役職の断面 × 性別」を手作業で結合することになり、まさに課題①の形になる。
 
-- 女性管理職比率 — `person_demographics.gender` × `position_holder` × `position.grade_code`
+**実際に開示している指標は次の3系統で確定した**（人事・労務確認、2026-08-04）。`person_demographics` に持つべき項目は現状の性別・生年月日の2項目で足り、追加は不要。
+
+- 女性管理職比率 — `person_demographics.gender` × `position_holder` × `position.grade_code`（管理職の線引きは 3.7 参照）
 - 男性育児休業取得率 — `gender` × `employment_status`（`reason` = 育児休業）。3.3 で `reason` を持つ決定をしたので HRCore 単体で算出できる
 - 年齢構成・平均年齢 — `birth_date` × 基準日
-- 勤続年数別の構成 — `person.group_joined_on` で算出（`person_demographics` は不要）
+- （参考）勤続年数別の構成 — `person.group_joined_on` で算出（`person_demographics` は不要）
 
 **なぜ3層にしたか（2層でなく）**
 
@@ -224,6 +229,8 @@ PostgreSQL のビューは定義者の権限で動く（`security_invoker = fals
 
 `PROJECT.md` 2.6 の「開発本部からの要望・職能カットでの所属表現」の実体がこれ。**配属（`assignment`）の複数持ちでは表現できない** — 職能は組織ではないため `org_unit` にならない。
 
+**適用範囲は現行のまま（開発本部・人事確認、2026-08-04）** — 開発組織のメンバー限定を維持し、営業・バックオフィス等の全社への拡大は行わない。
+
 **`working_group` と分けた理由**
 
 構造はほぼ同じ（person × 横断グループ × 期間 × 役割）だが、性質が違う。
@@ -239,7 +246,7 @@ PostgreSQL のビューは定義者の権限で動く（`security_invoker = fals
 
 `job_function.external_code` に bozuman の組織コードを持つ。現行はタグ一覧アプリに `bozumanシステム組織コード` フィールドが1つあるだけで、複数システムへの対応は現行の要求にない。必要になった時点で `system_name` を持つ別テーブルへ切り出す。
 
-**`org_external_code` の扱い** — 組織側の外部コード対応表として先に作ったが、棚卸しの結果、bozuman コードは職能側に紐づいていた。組織側にも外部コード対応が必要かは未確認で、不要なら削除する（`POC.md` 3章）。
+**`org_external_code` は削除した** — 組織側の外部コード対応表として先に作ったが、棚卸しの結果、bozuman コードは職能側（「タグ一覧」アプリ）にのみ紐づいており、「組織一覧」アプリには対応するフィールドが存在しないことを確認した（kintone アプリID:31/33、2026-08-04）。組織側の外部コード対応は不要と判定し、テーブルを削除した。
 
 **集計軸が4本目になる**
 
@@ -275,6 +282,14 @@ PostgreSQL のビューは定義者の権限で動く（`security_invoker = fals
 
 Cybozu US（`CBUS`）の組織はサイボウズ側のグローバル事業本部の配下にあるため、`CBUS` の会社相当組織は役員設置用の器として存在し、配下組織を持たない独立ルートになる。会社別集計と階層集計が別軸であるという既存の性質（`REQUIREMENTS.md` 3.2）がそのまま現れた形。
 
+**「管理職」の判定は `position_grade.is_management` フラグで持つ方針（線引きの値は未確定）**
+
+女性管理職比率の算出には「どこからを管理職とみなすか」という線引きが必要。技術的には集計クエリ側で `grade_order <= N` と書けば絞れるが、これは「管理職とは何か」という人事制度上の定義をクエリ側にマジックナンバーとして埋め込むことになり、書き手（分析ロール・AI エージェント含む）によって線引きがブレる・誤るリスクがある。
+
+**役職を持たない管理職相当（等級・エキスパート職等）はいないことを確認した**（人事・労務確認、2026-08-04）。したがって管理職の判定は `position_holder`（役職者）を前提にして完結し、別軸を持つ必要はない。
+
+`org_layer.is_countable` / `employment_status_type.is_active` と同じ設計パターンとして、`position_grade` に `is_management` フラグを持たせ、集計側は `grade_order` の具体的な数値を知らなくてもフラグで絞れるようにする方針を採る。**線引きの具体値（チームリーダーを含むか等）は人事確認待ちのため、列追加は確定後にまとめて行う**（`TODO.md` B章）。
+
 ### 3.8 在籍状況の7区分を2軸に分解する
 
 現行の「在籍状況」フィールドは7区分。
@@ -295,10 +310,16 @@ active 在籍（is_active = true） / leave 休職 / retired 退職
 
 「外部」は業務委託・派遣などの雇用契約のない外部人材を指す。在籍状態とは直交する属性なので、社員区分側に持つ。マスタに `is_employee` フラグを置き、集計側が区分名を列挙せずに絞れるようにする。
 
+現行の「社員区分」フィールドの選択肢は当初の仮置き（正社員／契約社員／業務委託／派遣の4値）より遥かに細かく、実際は18種類ある（値は `db/schema.sql` の `employment_type` INSERT が単一ソース）。大別すると:
+
 ```
-regular 正社員（is_employee = true） / contract 契約社員（true）
-outsourced 業務委託（false）        / dispatched 派遣（false）
+雇用契約あり（is_employee = true）: 無期雇用系・有期雇用系・インターン
+雇用契約なし（is_employee = false）: 業務委託・派遣・EOR・協力会社・顧問
+役員系（is_employee = false）: 代表取締役社長・社外取締役・監査役・執行役員（委任契約と想定）
+その他（is_employee 要確認）: 出向契約、ラボユース（契約実態が未確認。`TODO.md` B章参照）
 ```
+
+**執行役員は一律 `is_employee = false` で確定した**（人事・労務確認、2026-08-04）。使用人兼務型（従業員としての雇用契約を持ちながら執行役員を兼ねる）のケースは実在するが少数であり、人員集計の分母への影響は小さいと判断した。個人ごとの実態を厳密に区別する設計（`employment_type` から `employment` へのフラグ移動）は採らない。
 
 外部人材も `employment` テーブルで扱う。「雇用」という名前と実体はずれるが、現行も同じ名簿で管理しており、配属・職能・WG を同じモデルで扱えるため。区別は `is_employee` で行う。
 
@@ -343,7 +364,7 @@ DDL 本体は `db/schema.sql`（実行可能な単一ソース）。本章はそ
 
 - **マスタ** — `company` / `location` / `org_layer` / `employment_status_type` / `employment_type` / `position_grade`
 - **人** — `person` / `person_name` / `person_demographics` / `employment` / `employment_status` / `employment_condition`
-- **組織** — `org_unit` / `org_hierarchy` / `org_external_code` ＋ 階層区分を検査する制約トリガ `trg_org_layer_order`
+- **組織** — `org_unit` / `org_hierarchy` ＋ 階層区分を検査する制約トリガ `trg_org_layer_order`
 - **役職・配属** — `position` / `position_holder` / `assignment`（案A）/ `assignment_bt`（案B）＋ 更新関数 `assignment_upsert()`
 - **横断的な所属** — `working_group` / `working_group_member` / `job_function` / `person_job_function`
 - **監査** — `change_log`（案A 用）
@@ -360,7 +381,6 @@ DDL 本体は `db/schema.sql`（実行可能な単一ソース）。本章はそ
 - `employment_status` — `person_id` ＋ 期間 → 同時に1状態（在籍・休職・退職は排他）
 - `employment_condition` — `person_id` ＋ 期間 → 同時に1つの労働条件
 - `org_hierarchy` — `org_code` ＋ 期間 → 親は同時に1つ
-- `org_external_code` — `org_code` ＋ `system_name` ＋ 期間 → 1システムにつき1対応
 - `assignment` — `person_id` ＋ `org_code` ＋ 期間 → 同一組織への重複配属のみ禁止。**複数組織への同時配属は許す**（マトリクス組織・兼務の表現）
 - `position_holder` — `person_id` ＋ `position_id` ＋ 期間
 - `working_group_member` — `person_id` ＋ `wg_code` ＋ 期間 → 複数 WG の同時参加は許す
@@ -396,6 +416,8 @@ DDL 本体は `db/schema.sql`（実行可能な単一ソース）。本章はそ
 - 有効期間のギャップ検出（在籍中に配属がない期間）。**休職者を誤検知しないよう `employment_status.is_active` で除外する条件が要る**
 - 在籍状況と雇用の整合検証（`employment` がない期間に `employment_status` が在籍になっていないか）
 - `position_grade` の初期データ（役職階層の段数・名称が未確定）
+- `employment_status.reason` の値の統制（CHECK 制約または参照テーブル）。休職理由（産休・育休・私傷病・介護 等）の表記ゆれ防止に必要（3.3 参照）
+- `position_grade.is_management` フラグ。管理職の線引きが人事確認待ちのため列自体が未追加（3.7 参照）
 - ダミーデータの投入スクリプト
 
 ---

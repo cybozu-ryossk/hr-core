@@ -73,9 +73,19 @@ INSERT INTO employment_status_type (status_code, status_name, is_active) VALUES
   ('leave',    '休職', false),
   ('retired',  '退職', false);
 
--- 社員区分。is_employee = false は雇用契約のない外部人材（業務委託・派遣）
+-- 社員区分。is_employee = false は雇用契約のない外部人材（業務委託・派遣 等）
 -- 人員集計・人的資本開示の分母から外すために使う。
 -- 「社員数」は is_employee かつ is_active、「稼働人員数」は is_active（外部人材を含む）
+--
+-- 値は「社員名簿(公開)」の社員区分フィールドの選択肢に合わせた実際の18種類
+-- （kintone スペースID:5 / アプリID:34 で確認、2026-08-04。当初の仮置き4値は大きく外れていた）。
+-- is_employee の判定:
+--   役員系（代表取締役社長・社外取締役・監査役）… 委任契約のため false（会社法上明確）
+--   執行役員 … 一律 false で確定（人事・労務確認、2026-08-04）。使用人兼務型（雇用契約あり）の
+--             ケースは実在するが少数で、人員集計の分母への影響は小さいと判断し
+--             個人単位の厳密な判定（employment 側へのフラグ移動）は採らない
+--   出向契約・出向契約（官民交流）… 雇用元は出向先企業と想定して false（要確認、docs/TODO.md B章）
+--   ラボユース・ラボユース（研究生）… 契約形態が未確認のため false（要確認、docs/TODO.md B章）
 CREATE TABLE employment_type (
   type_code   text    PRIMARY KEY,
   type_name   text    NOT NULL,
@@ -83,10 +93,24 @@ CREATE TABLE employment_type (
 );
 
 INSERT INTO employment_type (type_code, type_name, is_employee) VALUES
-  ('regular',    '正社員',   true),
-  ('contract',   '契約社員', true),
-  ('outsourced', '業務委託', false),
-  ('dispatched', '派遣',     false);
+  ('exec_president',            '代表取締役社長',             false),
+  ('outside_director',          '社外取締役',                 false),
+  ('auditor',                   '監査役',                     false),
+  ('executive_officer',         '執行役員',                   false),
+  ('advisor',                   '顧問',                       false),
+  ('permanent',                 '無期雇用またはそれに準ずる', true),
+  ('permanent_challenged',      '無期雇用（チャレンジド）',   true),
+  ('fixed_term_contract',       '有期雇用（契約社員）',       true),
+  ('fixed_term_parttime',       '有期雇用（アルバイト）',     true),
+  ('intern',                    'インターン',                 true),
+  ('labo_use',                  'ラボユース',                 false),
+  ('labo_use_researcher',       'ラボユース（研究生）',       false),
+  ('dispatched',                '派遣契約',                   false),
+  ('outsourced',                '業務委託契約',               false),
+  ('eor',                       'EORサービス契約',            false),
+  ('secondment',                '出向契約',                   false),
+  ('secondment_public_private', '出向契約（官民交流）',       false),
+  ('partner_staff',             '協力会社社員',               false);
 
 -- 役職階層（役職のランク）。grade_order が小さいほど組織上の上位
 --
@@ -140,7 +164,7 @@ CREATE TABLE person_name (
 -- 履歴は持たない（上書き更新）
 CREATE TABLE person_demographics (
   person_id  bigint PRIMARY KEY REFERENCES person,
-  gender     text,   -- 現行の値を確認したうえでマスタ化するか判断する
+  gender     text,   -- 「男」/「女」の2値（kintone アプリID:35 で確認、2026-08-04）。マスタ化しない
   birth_date date
 );
 
@@ -149,6 +173,8 @@ CREATE TABLE person_demographics (
 -- 雇用契約のない外部人材（業務委託・派遣）も本テーブルで扱う。現行も同じ名簿で管理しており、
 -- 配属・職能・WG を同じモデルで扱えるため。区別は employment_type.is_employee で行う
 -- 入社前の人は valid_period の下限が未来日の行として存在する（employment_status の行は作らない）
+-- employee_no は会社ごとに新規発番される（人事・労務確認、2026-08-04）。
+-- person_id は転籍をまたいで不変だが、employee_no は転籍のたびに切り替わる
 CREATE TABLE employment (
   person_id               bigint    NOT NULL REFERENCES person,
   company_code            text      NOT NULL REFERENCES company,
@@ -169,6 +195,11 @@ CREATE INDEX idx_employment_company ON employment (company_code);
 -- 在籍状況（在籍・休職・退職）
 -- assignment とは独立して切れる。休職しても配属は切らない運用のため、
 -- 「在籍かつ配属」を数えるときは assignment と本テーブルを JOIN する必要がある
+--
+-- 産休・育休・私傷病・介護は休職の「状態」としては分けない（人事・労務確認、2026-08-04）。
+-- いずれも is_active = false で共通のため employment_status_type には追加しない。
+-- 男性育児休業取得率（reason = 育児休業）等の開示指標を表記ゆれなく集計できるよう、
+-- reason の値は CHECK 制約または小さな参照テーブルで統制する（現時点は未実装、docs/SPEC.md 3.3）
 CREATE TABLE employment_status (
   person_id    bigint    NOT NULL REFERENCES person,
   status_code  text      NOT NULL REFERENCES employment_status_type,
@@ -185,15 +216,20 @@ CREATE INDEX idx_employment_status_person ON employment_status USING gist (perso
 -- employment に持つと労働条件の変更ごとに雇用の期間を切ることになり、
 -- 「いつからその会社に在籍しているか」が読めなくなる（employment_status と同じ理屈）
 -- 現行では5項目とも「社員名簿(公開)」アプリにあり、公開情報として扱われている
+-- worktime_mgmt_type / pay_type は text のままとし、マスタテーブル化しない
+-- （値の増減が少なく、org_layer 等と違って参照制約が必要なほど頻繁に変わらないため）。
+-- 値の妥当性は入力側（API 層）でバリデーションする。
+-- 現行値（kintone アプリID:34 で確認、2026-08-04）:
+--   worktime_mgmt_type: 管理監督者（月給）/ 通常の労働時間制（月給・時給・日給）/
+--                        裁量労働制（月給）/ フレックスタイム制（月給）の6種
+--   pay_type:           月給 / 年俸 / 日給 / 時給 の4種
 CREATE TABLE employment_condition (
   person_id            bigint    NOT NULL REFERENCES person,
   scheduled_hours      numeric(4,2),   -- 所定労働時間数（1日あたり）
   work_days_per_week   numeric(3,1),   -- 週の勤務日数
   fixed_overtime_hours numeric(4,1),   -- 固定残業時間数（みなし残業）
-  worktime_mgmt_type   text,           -- 労働時間管理（通常/裁量労働/管理監督者 等）
-  pay_type             text,           -- 給与体系（月給/年俸/日給/時給）。賃金の分類のみで金額は持たない
-                                       -- worktime_mgmt_type / pay_type は現行の値を確認したうえで
-                                       -- マスタ化するか判断する
+  worktime_mgmt_type   text,           -- 労働時間管理
+  pay_type             text,           -- 給与体系。賃金の分類のみで金額は持たない
   valid_period         daterange NOT NULL,
   EXCLUDE USING gist (person_id WITH =, valid_period WITH &&)  -- 同時に1条件
 );
@@ -234,17 +270,10 @@ CREATE TABLE org_hierarchy (
 
 CREATE INDEX idx_org_hierarchy_parent ON org_hierarchy (parent_org_code);
 
--- 組織コードの外部システム対応表
--- ⚠ 現行項目の棚卸し（tmp/fields.tsv）では、bozuman システム組織コードは「タグ一覧」＝職能側に
---   紐づいており、組織一覧には外部コードのフィールドがない。組織側にも外部コード対応が
---   必要かは未確認（docs/POC.md 3章）。不要なら本テーブルは削除する
-CREATE TABLE org_external_code (
-  org_code      text      NOT NULL,
-  system_name   text      NOT NULL,   -- 'bozuman' 等
-  external_code text      NOT NULL,
-  valid_period  daterange NOT NULL,
-  EXCLUDE USING gist (org_code WITH =, system_name WITH =, valid_period WITH &&)
-);
+-- 組織コードの外部システム対応表（org_external_code）は削除した。
+-- kintone スペースID:5 のアプリを確認した結果（2026-08-04）、bozuman システム組織コードは
+-- 「タグ一覧」＝職能側（job_function.external_code）にのみ紐づいており、「組織一覧」には
+-- 外部コード用のフィールドが存在しないため、組織側の対応表は不要と判定した
 
 
 -- 親の階層区分が子より上位であることを保証する
