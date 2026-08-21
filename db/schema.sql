@@ -512,6 +512,9 @@ CREATE VIEW org_path_current AS SELECT * FROM org_full_path(CURRENT_DATE);
 
 -- 社員の現在断面。外部システムのアプリ化では range 型を扱えないため date 2列に展開する
 -- 在籍状況を含めることで、利用側が status の JOIN を忘れて休職者を混ぜる事故を防ぐ
+-- 労働条件（employment_condition）は person_id と時系列を除けば1:1（EXCLUDE制約で同時に1つ）
+-- のため、別ビューに分けず employee_current に LEFT JOIN する（2026-08-21 決定）。
+-- 労働条件が未登録の社員でも一覧に出るよう INNER ではなく LEFT で結合する
 CREATE VIEW employee_current AS
 SELECT
   e.person_id,
@@ -534,6 +537,13 @@ SELECT
   s.status_code,
   st.status_name,
   st.is_active,
+  ec.scheduled_hours,
+  ec.work_days_per_week,
+  ec.fixed_overtime_hours,
+  ec.worktime_mgmt_type,
+  ec.pay_type,
+  round(ec.scheduled_hours * ec.work_days_per_week
+        / nullif(c.standard_weekly_hours, 0), 3) AS fte,
   lower(e.valid_period) AS valid_start,
   upper(e.valid_period) AS valid_end
 FROM employment e
@@ -545,6 +555,7 @@ LEFT JOIN location l  ON l.location_code  = e.location_code           AND l.vali
 LEFT JOIN location rl ON rl.location_code = e.residence_location_code AND rl.valid_period @> CURRENT_DATE
 LEFT JOIN employment_status s ON s.person_id = e.person_id AND s.valid_period @> CURRENT_DATE
 LEFT JOIN employment_status_type st ON st.status_code = s.status_code
+LEFT JOIN employment_condition ec ON ec.person_id = e.person_id AND ec.valid_period @> CURRENT_DATE
 WHERE e.valid_period @> CURRENT_DATE;
 
 -- 入社前の人（現行の在籍状況「入社前」に相当）
@@ -582,27 +593,6 @@ JOIN org_unit o ON o.org_code = a.org_code AND o.valid_period @> CURRENT_DATE
 LEFT JOIN employment_status s ON s.person_id = a.person_id AND s.valid_period @> CURRENT_DATE
 LEFT JOIN employment_status_type st ON st.status_code = s.status_code
 WHERE a.valid_period @> CURRENT_DATE;
-
--- 労働条件の現在断面。FTE を DB 側で計算して出す
--- 分母（standard_weekly_hours）を利用側に選ばせると集計がばらつくため、ここで確定させる
--- ⚠ 兼務者の FTE をこのまま配属で集計すると二重計上になる。
---    兼務工数は kintone 側にあるため、HRCore 単体で正しく出せるのは主務ベースの FTE のみ
-CREATE VIEW employment_condition_current AS
-SELECT
-  c.person_id,
-  c.scheduled_hours,
-  c.work_days_per_week,
-  c.fixed_overtime_hours,
-  c.worktime_mgmt_type,
-  c.pay_type,
-  round(c.scheduled_hours * c.work_days_per_week
-        / nullif(co.standard_weekly_hours, 0), 3) AS fte,
-  lower(c.valid_period) AS valid_start,
-  upper(c.valid_period) AS valid_end
-FROM employment_condition c
-JOIN employment e  ON e.person_id = c.person_id      AND e.valid_period  @> CURRENT_DATE
-JOIN company    co ON co.company_code = e.company_code AND co.valid_period @> CURRENT_DATE
-WHERE c.valid_period @> CURRENT_DATE;
 
 -- ワーキンググループの現在断面
 CREATE VIEW working_group_member_current AS
@@ -678,7 +668,6 @@ GRANT SELECT ON
   employee_current,
   employee_pending,
   assignment_current,
-  employment_condition_current,
   working_group_member_current,
   person_job_function_current,
   assignment_bt_current

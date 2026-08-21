@@ -194,11 +194,15 @@ assignment          p1 HRINF true [2022-04-01,)      ← 切らない
 
 **`employment` に列として持たなかった理由**
 
-労働条件が変わっても雇用契約は継続する。`employment` に列を足すと労働条件の変更ごとに雇用の期間を切ることになり、「いつからその会社に在籍しているか」が読めなくなる。`employment_status` を分けたのと同じ理屈。
+労働条件が変わっても雇用契約は継続する。`employment` に列を足すと労働条件の変更ごとに雇用の期間を切ることになり、「いつからその会社に在籍しているか」が読めなくなる。`employment_status` を分けたのと同じ理屈。**ただしテーブルは分けても、公開ビューはアプリに寄せる（後述）。**
 
 **FTE の分母は `company` に持つ**
 
-`company.standard_weekly_hours`（例: 40.0 = 8時間 × 週5日を 1.0 FTE とする）。会社ごとに所定が異なりうるため会社側に持ち、`employment_condition_current` ビューで FTE を計算して出す。分母を利用側に選ばせると集計がばらつくため DB 側で確定させる。
+`company.standard_weekly_hours`（例: 40.0 = 8時間 × 週5日を 1.0 FTE とする）。会社ごとに所定が異なりうるため会社側に持ち、`employee_current` ビューで FTE を計算して出す。分母を利用側に選ばせると集計がばらつくため DB 側で確定させる。
+
+**公開ビューは `employee_current` に統合する（2026-08-21 決定）**
+
+`employment_condition` は `person_id` + 期間の `EXCLUDE` 制約を持ち、時系列を除けば `person_id` と1:1になる。テーブルは別（変更ライフサイクルが違う。上記）だが、公開ビューまで分ける理由はない。当初は `employment_condition_current` として独立ビュー・独立 kintone アプリ（アダプタ）にしていたが、`assignment` / `person_job_function` / `working_group_member` のような1人が複数行を持つ（兼務・複数職能・複数WG）ビューとは性質が違い、1:1のものまでアプリを分けるとアプリ数が増えるだけで参照の手間が増す。`employment_condition_current` は廃止し、列を `employee_current` に LEFT JOIN で統合する（労働条件が未登録でも社員一覧には出るように INNER ではなく LEFT）。
 
 なお日給・時給者は所定労働時間や週勤務日数が固定でない場合があり、その場合 FTE は実態と乖離する。FTE を使う集計では `pay_type` で対象を絞るか、乖離を前提として扱う。
 
@@ -391,7 +395,7 @@ DDL 本体は `db/schema.sql`（実行可能な単一ソース）。本章はそ
 - **横断的な所属** — `working_group` / `working_group_member` / `job_function` / `person_job_function`
 - **監査** — `change_log`（案A 用）
 - **ロール** — `hrcore_hr` / `hrcore_analyst` / `hrcore_kintone` ＋ GRANT（3.5 参照）
-- **kintone 公開用** — `org_full_path(date)` / `org_path_current` / `employee_current` / `employee_pending` / `assignment_current` / `employment_condition_current` / `working_group_member_current` / `person_job_function_current`
+- **kintone 公開用** — `org_full_path(date)` / `org_path_current` / `employee_current`（労働条件を統合。3.4参照）/ `employee_pending` / `assignment_current` / `working_group_member_current` / `person_job_function_current`
 
 ### 4.2 設計判断
 
